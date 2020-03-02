@@ -1,0 +1,77 @@
+body{
+
+
+  height: 0;
+  background: url(../../assets/discover-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+svg{
+  align-self: center;
+  /* margin: auto; */
+  width: 100vw;
+  height: 50vh;
+  position: static;
+
+
+}
+
+path{
+  fill: none;
+  stroke: black;
+  stroke-width: 16px;
+  pointer-events: all;
+}
+
+.building {
+  display: block;
+}
+#a-build{
+  visibility: hidden;
+}
+path:hover  {
+  fill: 	#808080;
+  fill-opacity: 1;
+  visibility: visible;
+
+
+}
+
+
+
+.header{
+
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color:	rgb(192,192,192,0.8);
+}
+.container{
+  display: flex;
+  flex-direction: row;
+
+}
+mat-form-field{
+ margin-right: 20px;
+ margin-left: 20px;
+}
+.svg-div{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+.buildingDetail{
+width: 15vw;
+
+position: relative;
+
+}
+mat-card{
+  height: 50vh;
+  margin-bottom: 10px;
+}
+.example-tooltip-red {
+  background: #b71c1c;
+}
