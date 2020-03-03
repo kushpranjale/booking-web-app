@@ -1,0 +1,49 @@
+<diV>
+    <div class="first-container">
+        <div>
+            <mat-card>
+                <mat-card-header class="cart-details-div">
+                    <mat-card-title>
+                        Select Room
+                    </mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
+        <div class="second-container">
+            <div>
+                <mat-card class="room-details">
+                    <mat-card-title> Room Details :</mat-card-title>
+
+                    <hr style="background-color:black" />
+
+                    <div style="display: flex; flex-direction: column;">
+                        <ngx-slick-carousel
+                            class="carousel"
+                            #slickModal="slick-carousel"
+                            [config]="slideConfig"
+                        >
+                            <div
+                                ngxSlickItem
+                                *ngFor="let image of imageList"
+                                class="slide"
+                            >
+                                <img src="{{ image.img }}" width="100%" />
+                            </div>
+                        </ngx-slick-carousel>
+                    </div>
+                </mat-card>
+            </div>
+
+            <div>
+                <mat-card class="cart-detail">
+                    <mat-card-header class="cart-details-div">
+                        <mat-card-title>
+                            Cart
+                            <hr />
+                        </mat-card-title>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</diV>

@@ -1,0 +1,67 @@
+body {
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+.first-container {
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+}
+
+.first-container mat-card {
+    height: 30vh;
+}
+
+.second-container {
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    bottom: 0;
+}
+
+.second-container .room-details {
+    width: 70vw;
+    height: 70vh;
+    margin: 0;
+    background-color: #dcdcdc;
+}
+
+.second-container .cart-detail {
+    height: 70vh;
+    width: 30vw;
+    margin: 0;
+}
+
+.cart-details-div {
+    display: contents;
+    flex-direction: row;
+    text-align: center;
+}
+
+.slick-slider {
+    width: 30%;
+    margin-left: 25px;
+}
+table,
+th,
+td {
+    border-collapse: collapse;
+}
+th,
+td {
+    padding: 5px;
+    text-align: left;
+}
+mat-icon {
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+.vl {
+    border-left: 6px solid black;
+    height: 60vh;
+    margin-left: 10vw;
+}
+left-panel {
+    width: 20%;
+}
