@@ -15,21 +15,165 @@
                     <mat-card-title> Room Details :</mat-card-title>
 
                     <hr style="background-color:black" />
-
-                    <div style="display: flex; flex-direction: column;">
-                        <ngx-slick-carousel
-                            class="carousel"
-                            #slickModal="slick-carousel"
-                            [config]="slideConfig"
+                    <div
+                        style="display: flex;  flex-direction: row; margin-left: 5%;"
+                    >
+                        <div
+                            style="display: flex; flex-direction: column; width: 40%; padding-right: 5%;"
                         >
-                            <div
-                                ngxSlickItem
-                                *ngFor="let image of imageList"
-                                class="slide"
+                            <ngx-slick-carousel
+                                class="carousel"
+                                #slickModal="slick-carousel"
+                                [config]="slideConfig"
                             >
-                                <img src="{{ image.img }}" width="100%" />
+                                <div
+                                    ngxSlickItem
+                                    *ngFor="let image of imageList"
+                                    class="slide"
+                                >
+                                    <img src="{{ image.img }}" width="100%" />
+                                </div>
+                            </ngx-slick-carousel>
+                            <table
+                                style="width:auto; margin-left: 25px; font-size: 20px;"
+                            >
+                                <tr>
+                                    <td>Room Type :</td>
+                                    <td>Studio loft</td>
+                                </tr>
+                                <tr>
+                                    <td>Number Of Pax :</td>
+                                    <td>
+                                        4
+                                        <mat-icon [inline]="true"
+                                            >child_care</mat-icon
+                                        >
+                                        4
+                                        <mat-icon>person</mat-icon>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="vertical"></div>
+                        <div>
+                            <mat-card-title>Option 1</mat-card-title>
+                            <hr
+                                style="background-color:black; width: 35vw; font-weight: bold;"
+                            />
+                            <div style="display: flex; flex-direction: row;">
+                                <div>
+                                    <table
+                                        style="width:auto; margin-left: 25px; font-size: 20px;"
+                                    >
+                                        <tr>
+                                            <td>Pool</td>
+                                            <td><mat-icon>pool</mat-icon></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AC</td>
+                                            <td>
+                                                <mat-icon>ac_unit</mat-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WiFi</td>
+                                            <td><mat-icon>wifi</mat-icon></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <table
+                                        style="width:auto; margin-left: 55px; font-size: 20px;"
+                                    >
+                                        <tr>
+                                            <td>TV</td>
+                                            <td><mat-icon>tv</mat-icon></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Break Fast</td>
+                                            <td>
+                                                <mat-icon
+                                                    >free_breakfast</mat-icon
+                                                >
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-left: 15vw;">
+                                    <button mat-raised-button color="primary">
+                                        Add Room
+                                    </button>
+                                </div>
                             </div>
-                        </ngx-slick-carousel>
+
+                            <div
+                                style="margin: 0;position: relative;top: 50%;
+                            -ms-transform: translateY(-50%);
+                            transform: translateY(-50%);
+                          "
+                            >
+                                <mat-card-title>Option 2</mat-card-title>
+                                <hr
+                                    style="background-color:black; width: 35vw; font-weight: bold;"
+                                />
+                                <div
+                                    style="display: flex; flex-direction: row;"
+                                >
+                                    <div>
+                                        <table
+                                            style="width:auto; margin-left: 25px; font-size: 20px;"
+                                        >
+                                            <tr>
+                                                <td>Pool</td>
+                                                <td>
+                                                    <mat-icon>pool</mat-icon>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>AC</td>
+                                                <td>
+                                                    <mat-icon>ac_unit</mat-icon>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>No WiFi</td>
+                                                <td>
+                                                    <mat-icon
+                                                        >signal_wifi_off</mat-icon
+                                                    >
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <table
+                                            style="width:auto; margin-left: 55px; font-size: 20px;"
+                                        >
+                                            <tr>
+                                                <td>TV</td>
+                                                <td><mat-icon>tv</mat-icon></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Break Fast</td>
+                                                <td>
+                                                    <mat-icon
+                                                        >free_breakfast</mat-icon
+                                                    >
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div style="margin-left: 14vw;">
+                                        <button
+                                            mat-raised-button
+                                            color="primary"
+                                        >
+                                            Add Room
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </mat-card>
             </div>

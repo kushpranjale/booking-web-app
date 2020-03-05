@@ -39,8 +39,8 @@ body {
 }
 
 .slick-slider {
-    width: 30%;
-    margin-left: 25px;
+    width: 90%;
+    /* margin-left: 20px; */
 }
 table,
 th,
@@ -57,10 +57,11 @@ mat-icon {
     position: relative;
     top: -1px;
 }
-.vl {
-    border-left: 6px solid black;
+.vertical {
+    border-left: 4px solid black;
     height: 60vh;
-    margin-left: 10vw;
+    position: absolute;
+    margin-left: 24vw;
 }
 left-panel {
     width: 20%;

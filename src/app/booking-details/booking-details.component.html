@@ -1,0 +1,70 @@
+<div class="body-class">
+    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center">
+        <div>
+            <mat-card>
+                <mat-card-title>Fill Out Your Booking Details</mat-card-title>
+                <div class="from-container">
+                    <mat-form-field>
+                        <input matInput />
+                        <mat-label>Full Name</mat-label>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput />
+                        <mat-label>Mobile Number</mat-label>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput />
+                        <mat-label>Email Id</mat-label>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput />
+                        <mat-label>Age</mat-label>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput />
+                        <mat-label>Kyc Type</mat-label>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput />
+                        <mat-label>Kyc Number</mat-label>
+                    </mat-form-field>
+
+                    <!-- <mat-label>Upload Aadhar image</mat-label> -->
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div>
+                        <label style="color: black; font-weight: 500;"
+                            >Upload Aadhar</label
+                        >
+                        <input
+                            style="display: none;"
+                            type="file"
+                            (change)="onFileSelect($event)"
+                            #fileinput
+                        />
+
+                        <button
+                            style="margin-left: 10px; font-weight: 400; color: black;"
+                            mat-stroked-button
+                            (click)="fileinput.click()"
+                        >
+                            Pick one
+                        </button>
+                    </div>
+
+                    <div
+                        class="image-preview"
+                        *ngIf="previewUrl"
+                        style="margin-left: 10px;"
+                    >
+                        <img [src]="previewUrl" class="img-thumbnail" />
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button mat-raised-button color="primary">Submit</button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
