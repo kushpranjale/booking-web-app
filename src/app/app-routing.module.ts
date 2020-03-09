@@ -1,3 +1,5 @@
+import { CustomerSignupComponent } from './customer-signup/customer-signup.component';
+import { CustomerLoginComponent } from './customer-login/customer-login.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
@@ -16,6 +18,14 @@ const routes: Routes = [
     {
         path: 'booking-detail',
         component: BookingDetailsComponent,
+    },
+    {
+        path: 'customer-login',
+        component: CustomerLoginComponent,
+    },
+    {
+        path: 'customer-signup',
+        component: CustomerSignupComponent,
     },
 ];
 

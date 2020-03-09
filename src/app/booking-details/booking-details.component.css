@@ -7,8 +7,6 @@
     margin: 0;
 }
 .from-container {
-    display: flex;
-    flex-direction: column;
     width: 100%;
 }
 mat-card {
@@ -17,6 +15,7 @@ mat-card {
     margin-top: 12px;
     margin: 17px auto;
     float: none;
+
     margin-bottom: 10px;
 }
 mat-label {

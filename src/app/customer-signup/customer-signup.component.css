@@ -1,0 +1,15 @@
+mat-form-field {
+    width: 300px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+    justify-items: center;
+    align-items: center;
+    margin: 15% 33% 10% 33%;
+    border: 2px solid gray;
+    flex-flow: column;
+}

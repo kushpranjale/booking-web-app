@@ -1,4 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    FormBuilder,
+    FormGroup,
+    Validators,
+    FormGroupDirective,
+} from '@angular/forms';
 
 @Component({
     selector: 'app-booking-details',
@@ -8,21 +14,41 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class BookingDetailsComponent implements OnInit {
     selectedFile: File;
     previewUrl: any;
+    bookingGroup: FormGroup;
+    t1: any;
+    t2: any;
 
-    constructor() {}
+    constructor(private formBuilder: FormBuilder) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.bookingGroup = this.formBuilder.group({
+            full_name: ['', [Validators.required]],
+            mobile_number: ['', [Validators.required]],
+            email_id: ['', [Validators.required, Validators.email]],
+            age: ['', [Validators.required]],
+            image: ['', [Validators.required]],
+        });
+    }
     onFileSelect(event) {
         this.selectedFile = event.target.files[0] as File;
         console.log(this.selectedFile);
+        this.bookingGroup.patchValue({ image: this.selectedFile });
         this.preView();
     }
     preView() {
-        let render = new FileReader();
+        const render = new FileReader();
         render.readAsDataURL(this.selectedFile);
         render.onload = () => {
-            console.log(render.result);
+            console.log(render);
             this.previewUrl = render.result;
         };
+    }
+    onSubmit(formDirective: FormGroupDirective) {
+        if (this.bookingGroup.invalid) {
+            return;
+        } else {
+            console.log('Booking form Group');
+            console.log(this.bookingGroup);
+        }
     }
 }

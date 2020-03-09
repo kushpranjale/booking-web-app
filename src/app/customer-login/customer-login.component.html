@@ -1,0 +1,139 @@
+<!-- <mat-card class="login-form">
+    <form
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+        #f="ngForm"
+        (ngSubmit)="onSubmit(f)"
+    >
+        <mat-form-field>
+            <input
+                matInput
+                type="email"
+                id="email"
+                placeholder="Email ID"
+                ngModel
+                name="email"
+                email
+                required
+                #emailInput="ngModel"
+            />
+            <mat-error *ngIf="emailInput.hasError('required')"
+                >Field must not be empty.</mat-error
+            >
+            <mat-error *ngIf="!emailInput.hasError('required')"
+                >E-Mail is invalid</mat-error
+            >
+        </mat-form-field>
+        <mat-form-field hintLabel="Should be at least 6 characters long">
+            <input
+                matInput
+                type="password"
+                id="password"
+                placeholder="Password"
+                ngModel
+                name="password"
+                password
+                minlength="6"
+                required
+                #pwInput="ngModel"
+            /><mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint
+            ><mat-error *ngIf="pwInput.hasError('required')"
+                >Field must not be empty.</mat-error
+            ><mat-error
+                *ngIf="
+                    pwInput.errors && f.submitted && pwInput.errors.minlength
+                "
+                >Has to be at least 6 characters long.</mat-error
+            ></mat-form-field
+        >
+        <button
+            mat-stroked-button
+            color="primary"
+            type="submit"
+            [disabled]="f.invalid"
+        >
+            Login
+        </button>
+    </form>
+
+    <p>
+        If you don't have an account yet
+        <a href="https://material.angular.io/guide/theming">Click Here</a>
+    </p>
+</mat-card> -->
+
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Log in</mat-card-title>
+        </mat-card-header>
+
+        <form class="example-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <input
+                        matInput
+                        type="email"
+                        id="email"
+                        placeholder="Email ID"
+                        ngModel
+                        name="email"
+                        email
+                        required
+                        #emailInput="ngModel"
+                    />
+                    <mat-error *ngIf="emailInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                    <mat-error *ngIf="!emailInput.hasError('required')"
+                        >E-Mail is invalid</mat-error
+                    >
+                </mat-form-field>
+
+                <mat-form-field
+                    class="example-full-width"
+                    hintLabel="Should be at least 6 characters long"
+                >
+                    <input
+                        matInput
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        ngModel
+                        name="password"
+                        password
+                        minlength="6"
+                        required
+                        #pwInput="ngModel"
+                    />
+                    <mat-hint align="end"
+                        >{{ pwInput.value?.length }} / 6</mat-hint
+                    ><mat-error *ngIf="pwInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    ><mat-error
+                        *ngIf="
+                            pwInput.errors &&
+                            f.submitted &&
+                            pwInput.errors.minlength
+                        "
+                        >Has to be at least 6 characters long.</mat-error
+                    >
+                </mat-form-field>
+            </mat-card-content>
+            <button
+                mat-stroked-button
+                color="accent"
+                class="btn-block"
+                [disabled]="f.invalid"
+            >
+                Log in
+            </button>
+        </form>
+
+        <p class="example-full-width">
+            If you don't have an account yet
+            <a href="https://material.angular.io/guide/theming">Click Here</a>
+        </p>
+    </mat-card>
+</div>
