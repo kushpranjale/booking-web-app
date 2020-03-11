@@ -15,17 +15,18 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
 }
-
+/*
 body {
     height: 100%;
     margin: 0;
     padding: 0;
-    /* background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png); */
-    background-image: url(./assets/room_type.jpg);
+     background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
+
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
     font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-}
+} */

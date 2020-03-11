@@ -1,4 +1,4 @@
-<section class="login-form">
+<!-- <mat-card class="login-form">
     <form
         fxLayout="column"
         fxLayoutAlign="center center"
@@ -61,4 +61,252 @@
         If you don't have an account yet
         <a href="https://material.angular.io/guide/theming">Click Here</a>
     </p>
-</section>
+</mat-card> -->
+<!-- <div class="background">
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Signup</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <mat-card-content>
+                    <mat-form-field class="example-full-width">
+                        <input
+                            matInput
+                            type="email"
+                            id="email"
+                            placeholder="Email ID"
+                            ngModel
+                            name="email"
+                            email
+                            required
+                            #emailInput="ngModel"
+                        />
+                        <mat-error *ngIf="emailInput.hasError('required')"
+                            >Field must not be empty.</mat-error
+                        >
+                        <mat-error *ngIf="!emailInput.hasError('required')"
+                            >E-Mail is invalid</mat-error
+                        >
+                    </mat-form-field>
+
+                    <mat-form-field
+                        class="example-full-width"
+                        hintLabel="Should be at least 6 characters long"
+                    >
+                        <input
+                            matInput
+                            type="password"
+                            id="password"
+                            placeholder="Password"
+                            ngModel
+                            name="password"
+                            password
+                            minlength="6"
+                            required
+                            #pwInput="ngModel"
+                        />
+                        <mat-hint align="end"
+                            >{{ pwInput.value?.length }} / 6</mat-hint
+                        ><mat-error *ngIf="pwInput.hasError('required')"
+                            >Field must not be empty.</mat-error
+                        ><mat-error
+                            *ngIf="
+                                pwInput.errors &&
+                                f.submitted &&
+                                pwInput.errors.minlength
+                            "
+                            >Has to be at least 6 characters long.</mat-error
+                        >
+                    </mat-form-field>
+                </mat-card-content>
+                <button
+                    mat-stroked-button
+                    type="submit"
+                    color="primary"
+                    class="btn-block"
+                    [disabled]="f.invalid"
+                >
+                    Sign Up
+                </button>
+            </form>
+
+            <p class="example-full-width">
+                If you don't have an account yet
+                <a href="https://material.angular.io/guide/theming"
+                    >Click Here</a
+                >
+            </p>
+        </mat-card>
+    </div>
+</div> -->
+
+<div class="background">
+    <mat-card class="contact-form">
+        <img src="../../assets/userlogo.png" alt="" class="avatar" />
+        <mat-card-header>
+            <mat-card-title>Sign Up</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="text"
+                        id="cust_username"
+                        placeholder="User Name"
+                        ngModel
+                        name="cust_username"
+                        required
+                        #nameInput="ngModel"
+                    />
+                    <mat-error *ngIf="nameInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field
+                    hintLabel="Should be at least 6 characters long"
+                >
+                    <input
+                        matInput
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        ngModel
+                        name="password"
+                        password
+                        minlength="6"
+                        required
+                        #pwInput="ngModel"
+                    />
+                    <mat-hint align="end"
+                        >{{ pwInput.value?.length }} / 6</mat-hint
+                    ><mat-error *ngIf="pwInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    ><mat-error
+                        *ngIf="
+                            pwInput.errors &&
+                            f.submitted &&
+                            pwInput.errors.minlength
+                        "
+                        >Has to be at least 6 characters long.</mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="text"
+                        id="first_name"
+                        placeholder="First Name"
+                        ngModel
+                        name="first_name"
+                        required
+                        #fnameInput="ngModel"
+                    />
+                    <mat-error *ngIf="fnameInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="text"
+                        id="last_name"
+                        placeholder="Last Name"
+                        ngModel
+                        name="last_name"
+                        required
+                        #lnameInput="ngModel"
+                    />
+                    <mat-error *ngIf="lnameInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="number"
+                        id="mobile"
+                        placeholder="Mobile"
+                        ngModel
+                        name="mobile"
+                        required
+                        #mobileInput="ngModel"
+                    />
+                    <mat-error *ngIf="mobileInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="email"
+                        id="email"
+                        placeholder="Email ID"
+                        ngModel
+                        name="email"
+                        email
+                        required
+                        #emailInput="ngModel"
+                    />
+                    <mat-error *ngIf="emailInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                    <mat-error *ngIf="!emailInput.hasError('required')"
+                        >E-Mail is invalid</mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        type="text"
+                        id="gender"
+                        placeholder="Gender"
+                        ngModel
+                        name="gender"
+                        required
+                        #genderInput="ngModel"
+                    />
+                    <mat-error *ngIf="genderInput.hasError('required')"
+                        >Field must not be empty.</mat-error
+                    >
+                </mat-form-field>
+
+                <button
+                    type="submit"
+                    [disabled]="f.invalid"
+                    [ngStyle]="{
+                        'background-color': f.invalid
+                            ? 'rgb(155, 171, 224)'
+                            : 'rgb(89, 89, 204)'
+                    }"
+                >
+                    Log in
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <!-- <mat-card>
+  <mat-card-header>
+      <mat-card-title>Title</mat-card-title>
+      <mat-card-subtitle>Subtitle</mat-card-subtitle>
+  </mat-card-header>
+  <img matCardImage src="Card wide image source" />
+  <mat-card-content>
+      <p>
+          If you don't have an account yet<a
+              [routerLink]="['/customer-signup']"
+              >Click Here</a
+          >
+      </p>
+  </mat-card-content>
+  <mat-card-actions align="start">
+      <button mat-button (click)="(onAction1)">Action1</button>
+  </mat-card-actions>
+  <mat-card-footer>
+      Footer
+  </mat-card-footer>
+</mat-card> -->
+</div>

@@ -1,13 +1,11 @@
-/* .app-header{justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:2;box-shadow:0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);} */
-.login-wrapper {
+/* .login-wrapper {
     height: 100%;
 }
-/* .positronx{text-decoration:none;color:#ffffff;} */
+
 .box {
     position: relative;
-    top: 0;
+    top: 25vh;
     opacity: 1;
-    float: left;
     padding: 60px 50px 40px 50px;
     width: 100%;
     background: #fff;
@@ -17,16 +15,8 @@
     -ms-transform: scale(1);
     z-index: 5;
     max-width: 440px;
-    align-self: flex-start;
 }
-/* .box.back {
-    transform: scale(0.95);
-    -webkit-transform: scale(0.95);
-    -ms-transform: scale(0.95);
-    top: -20px;
-    opacity: 0.8;
-    z-index: -1;
-} */
+
 .box:before {
     content: '';
     width: 100%;
@@ -73,4 +63,120 @@
 }
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
     padding: 0.8375em 0;
+}
+.background {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url(../../assets/room_type.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+mat-card-title {
+    color: rgba(60, 128, 255, 0.6);
+}
+a {
+    color: rgba(60, 128, 255, 0.6);
+} */
+.background {
+    margin: 0;
+    padding: 0;
+}
+.background:before {
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/Resort_View/IMG_8874.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    filter: blur(10px);
+}
+.contact-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 500px;
+    padding: 80px 40px;
+    background: rgba(255, 255, 255, 0.8);
+}
+.avatar {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    top: calc(-80px / 2);
+    left: calc(50% -40px);
+}
+.contact-form h2 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+}
+.contact-form mat-card-footer {
+    margin-top: 10%;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+mat-form-field,
+button {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+mat-form-field input[type='text'],
+mat-form-field input[type='password'] {
+    border: none;
+    /* border-bottom: 1px solid #fff; */
+    background: transparent;
+    outline: none;
+    height: 35px;
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+mat-card-content button[type='submit'] {
+    height: 30px;
+    color: #fff;
+    font-size: 15px;
+    /* background-color: rgb(155, 171, 224); */
+    /* background-color: rgb(89, 133, 204); */
+    cursor: pointer;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    margin-top: 10%;
+}
+
+/* ::ng-deep .mat-form-field-underline,
+::ng-deep .mat-form-field-ripple {
+    background-color: white !important;
+    color: white !important;
+} */
+
+::ng-deep .mat-form-field-empty.mat-form-field-label {
+    color: #000;
+    /* font-weight: bold; */
+}
+
+::ng-deep .mat-form-field .mat-hint {
+    color: #000;
 }
