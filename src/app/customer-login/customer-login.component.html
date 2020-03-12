@@ -224,31 +224,14 @@
             </form>
         </mat-card-content>
         <mat-card-footer>
-            If you don't have an account yet<a
-                [routerLink]="['/customer-signup']"
-                >Click Here</a
-            >
+            <p>
+                If you don't have an account yet
+            </p>
+            <div>
+                <a class="nav-link" [routerLink]="['/customer-signup']"
+                    ><span>Register Here</span></a
+                >
+            </div>
         </mat-card-footer>
     </mat-card>
-    <!-- <mat-card>
-    <mat-card-header>
-        <mat-card-title>Title</mat-card-title>
-        <mat-card-subtitle>Subtitle</mat-card-subtitle>
-    </mat-card-header>
-    <img matCardImage src="Card wide image source" />
-    <mat-card-content>
-        <p>
-            If you don't have an account yet<a
-                [routerLink]="['/customer-signup']"
-                >Click Here</a
-            >
-        </p>
-    </mat-card-content>
-    <mat-card-actions align="start">
-        <button mat-button (click)="(onAction1)">Action1</button>
-    </mat-card-actions>
-    <mat-card-footer>
-        Footer
-    </mat-card-footer>
-</mat-card> -->
 </div>

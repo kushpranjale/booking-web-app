@@ -1,3 +1,4 @@
+import { RoomChartComponent } from './room-chart/room-chart.component';
 import { CustomerSignupComponent } from './customer-signup/customer-signup.component';
 import { CustomerLoginComponent } from './customer-login/customer-login.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
@@ -14,6 +15,12 @@ const routes: Routes = [
     {
         path: 'add-room',
         component: AddRoomComponent,
+        children: [
+            {
+                path: 'room-chart',
+                component: RoomChartComponent,
+            },
+        ],
     },
     {
         path: 'booking-detail',

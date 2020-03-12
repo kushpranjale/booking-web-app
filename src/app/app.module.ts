@@ -14,6 +14,10 @@ import { CustomerLoginComponent } from './customer-login/customer-login.componen
 
 import { MaterialModule } from './material.module';
 import { CustomerSignupComponent } from './customer-signup/customer-signup.component';
+import { RoomChartComponent } from './room-chart/room-chart.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
     declarations: [
@@ -23,6 +27,7 @@ import { CustomerSignupComponent } from './customer-signup/customer-signup.compo
         BookingDetailsComponent,
         CustomerLoginComponent,
         CustomerSignupComponent,
+        RoomChartComponent,
     ],
     imports: [
         BrowserModule,
@@ -33,6 +38,8 @@ import { CustomerSignupComponent } from './customer-signup/customer-signup.compo
         BrowserAnimationsModule,
         FlexLayoutModule,
         MaterialModule,
+        NgbModule,
+        TooltipModule.forRoot(),
     ],
     providers: [],
     bootstrap: [AppComponent],

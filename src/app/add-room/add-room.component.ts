@@ -8,14 +8,14 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AddRoomComponent implements OnInit {
     imageList = [
-        { img: '../../assets/room type.jpg' },
-        { img: '../../assets/A Building.jpg' },
+        { img: '../../assets/room_type.jpg' },
+        { img: '../../assets/A_Building.jpg' },
 
-        { img: '../../assets/A Building.jpg' },
-        { img: '../../assets/room type.jpg' },
-        { img: '../../assets/A Building.jpg' },
+        { img: '../../assets/A_Building.jpg' },
+        { img: '../../assets/room_type.jpg' },
+        { img: '../../assets/A_Building.jpg' },
 
-        { img: '../../assets/A Building.jpg' },
+        { img: '../../assets/A_Building.jpg' },
     ];
 
     slideConfig = {

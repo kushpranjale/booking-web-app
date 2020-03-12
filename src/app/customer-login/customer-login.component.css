@@ -163,7 +163,7 @@ mat-card-content button[type='submit'] {
     border-radius: 25px;
     border: none;
     outline: none;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 /* ::ng-deep .mat-form-field-underline,
@@ -179,4 +179,8 @@ mat-card-content button[type='submit'] {
 
 ::ng-deep .mat-form-field .mat-hint {
     color: #000;
+}
+
+mat-card-footer {
+    text-align: center;
 }

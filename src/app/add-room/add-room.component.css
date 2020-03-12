@@ -23,7 +23,8 @@ body {
     width: 70vw;
     height: 70vh;
     margin: 0;
-    background-color: #dcdcdc;
+    /* background-color: #dcdcdc; */
+    background-color: #f8f8f8;
 }
 
 .second-container .cart-detail {
@@ -65,4 +66,9 @@ mat-icon {
 }
 left-panel {
     width: 20%;
+}
+
+.first-container mat-card {
+    height: 55vh;
+    width: 100hw;
 }
