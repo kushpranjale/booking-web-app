@@ -137,6 +137,26 @@ mat-card {
     background-size: cover;
 } */
 
+mat-card-content h5 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
+}
+
+mat-card-footer {
+    height: 40px;
+    width: auto;
+    background-color: #f0efef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-card-footer p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
+    margin: 0 auto;
+}
+
 :host >>> .tooltip-inner {
     padding: 0;
 }

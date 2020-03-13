@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IBuilding } from './model/building.model';
+import { IRoom } from './model/room.model';
+import { RoomService } from './service/room.service';
 
 @Component({
     selector: 'app-room-chart',
@@ -7,6 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomChartComponent implements OnInit {
     private seatConfig: any = null;
+    private roomConfig: any = null;
+    private config: any = null;
+    private seatmapConfig: any = null;
     private seatmap = [];
 
     private seatChartConfig = {
@@ -25,12 +31,47 @@ export class RoomChartComponent implements OnInit {
 
     title = 'seat-chart-generator';
 
+    private buildingData: IBuilding;
+    private roomData: IRoom;
+
     // html = `<p>Seat : {{ seatobj.seatLabel }} | Price : {{
     //   seatobj.price
     // }}Rs</p><div><img src="../assets/images/download.jpg" alt="Watch" height="100%" width="100%"></div>`;
 
+    constructor(private roomService: RoomService) {}
+
     ngOnInit(): void {
+        this.roomService.getBuildingByBuildingId('B').subscribe(result => {
+            console.log(result[0]);
+            console.log(result[0].building_layout);
+            this.buildingData = result;
+        });
+
+        this.roomService.getRoomByBuildingId('B').subscribe(result => {
+            console.log(result[0]);
+            console.log(result);
+            this.roomData = result;
+        });
+
         // Process a simple bus layout
+        this.buildingData[0].building_layout.forEach(element => {
+            this.seatmapConfig = {
+                seat_label: element.key,
+                layout: element.value,
+            };
+        });
+
+        // this.roomData[0].forEach(element => {
+        //     // this.seatmap.push(element.)
+        //     this.config = {
+        //         building_name: this.buildingData.building_name,
+        //         seat_price: element.room_rate,
+
+        //         seat_map: '',
+        //     };
+        //     this.roomConfig.push();
+        // });
+
         this.seatConfig = [
             {
                 building_name: 'C',

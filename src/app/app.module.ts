@@ -18,6 +18,7 @@ import { RoomChartComponent } from './room-chart/room-chart.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { TooltipModule } from 'ngx-bootstrap';
     imports: [
         BrowserModule,
         AppRoutingModule,
+        HttpClientModule,
         SlickCarouselModule,
         ReactiveFormsModule,
         FormsModule,

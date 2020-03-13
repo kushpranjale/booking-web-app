@@ -55,11 +55,11 @@
                                 width="100%"
                             />
                             <mat-card-content>
-                                <p>
-                                    Room : {{ seatobj.seatLabel }} | Price :
-                                    {{ seatobj.price }}Rs
-                                </p>
+                                <h5>{{ seatobj.seatLabel }}</h5>
                             </mat-card-content>
+                            <mat-card-footer>
+                                <p>₹ {{ seatobj.price }} / Per Night</p>
+                            </mat-card-footer>
                         </mat-card>
                     </ng-template>
 
