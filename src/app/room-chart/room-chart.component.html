@@ -1,7 +1,7 @@
 <div class="roomChart">
     <div class="seat-container">
         <div *ngFor="let seatrow of seatmap">
-            <div
+            <!-- <div
                 class="col-12 pricing-label"
                 *ngIf="
                     seatChartConfig?.showRowWisePricing &&
@@ -9,7 +9,7 @@
                 "
             >
                 {{ seatrow.seatPricingInformation }}
-            </div>
+            </div> -->
             <div class="seatrow container">
                 <div *ngIf="seatChartConfig?.showRowsLabel">
                     <div class="row-label">{{ seatrow.seatRowLabel }}</div>

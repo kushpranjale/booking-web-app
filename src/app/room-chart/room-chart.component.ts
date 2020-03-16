@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IBuilding } from './model/building.model';
 import { IRoom } from './model/room.model';
 import { RoomService } from './service/room.service';
+import { log } from 'util';
 
 @Component({
     selector: 'app-room-chart',
@@ -9,19 +10,21 @@ import { RoomService } from './service/room.service';
     styleUrls: ['./room-chart.component.css'],
 })
 export class RoomChartComponent implements OnInit {
-    private seatConfig: any = null;
-    private roomConfig: any = null;
-    private config: any = null;
-    private seatmapConfig: any = null;
-    private seatmap = [];
+    public seatConfig: any = null;
+    public buildingConfig: any[] = [];
+    public roomConfig: any[] = [];
+    public config: any[];
 
-    private seatChartConfig = {
+    public seatmapConfig: any = null;
+    public seatmap = [];
+
+    public seatChartConfig = {
         showRowsLabel: true,
         showRowWisePricing: false,
         newSeatNoForRow: true,
     };
 
-    private cart = {
+    public cart = {
         selectedSeats: [],
         seatstoStore: [],
         totalamount: 0,
@@ -31,8 +34,8 @@ export class RoomChartComponent implements OnInit {
 
     title = 'seat-chart-generator';
 
-    private buildingData: IBuilding;
-    private roomData: IRoom;
+    public buildingData: IBuilding[];
+    public roomData: any = [];
 
     // html = `<p>Seat : {{ seatobj.seatLabel }} | Price : {{
     //   seatobj.price
@@ -41,36 +44,43 @@ export class RoomChartComponent implements OnInit {
     constructor(private roomService: RoomService) {}
 
     ngOnInit(): void {
-        this.roomService.getBuildingByBuildingId('B').subscribe(result => {
-            console.log(result[0]);
-            console.log(result[0].building_layout);
-            this.buildingData = result;
-        });
+        this.config = this.processBuildingConfig();
+        console.log(this.config);
 
         this.roomService.getRoomByBuildingId('B').subscribe(result => {
-            console.log(result[0]);
-            console.log(result);
-            this.roomData = result;
-        });
-
-        // Process a simple bus layout
-        this.buildingData[0].building_layout.forEach(element => {
-            this.seatmapConfig = {
-                seat_label: element.key,
-                layout: element.value,
+            // console.log(result);
+            this.roomData = {
+                room: result,
             };
+
+            this.roomData.room.forEach(element => {
+                // console.log(element.room_image);
+                let array = [];
+                array = element.room_image
+                    .slice(1, element.room_image.length - 1)
+                    .split('"', element.room_image.length);
+
+                let final_arr = [];
+                for (var i = 1; i < array.length; i += 2) {
+                    //take every second element
+                    final_arr.push(array[i]);
+                }
+                // console.log(final_arr);
+
+                this.roomConfig.push({
+                    room_no: element.room_no,
+                    floor: element.floor,
+                    building_id: element.building_id,
+                    room_type: element.room_type,
+                    room_rate: element.room_rate,
+                    room_option_type: element.room_option_type,
+                    room_image: final_arr[0],
+                    room_status: element.room_status,
+                    no_of_pax: element.no_of_pax,
+                });
+                // console.log(this.roomConfig);
+            });
         });
-
-        // this.roomData[0].forEach(element => {
-        //     // this.seatmap.push(element.)
-        //     this.config = {
-        //         building_name: this.buildingData.building_name,
-        //         seat_price: element.room_rate,
-
-        //         seat_map: '',
-        //     };
-        //     this.roomConfig.push();
-        // });
 
         this.seatConfig = [
             {
@@ -98,17 +108,74 @@ export class RoomChartComponent implements OnInit {
                 ],
             },
         ];
+
         this.processSeatChart(this.seatConfig);
+
+        this.processRoomChart(this.roomConfig, this.config);
     }
 
+    processBuildingConfig(): any[] {
+        this.roomService.getBuildingByBuildingId('C').subscribe(result => {
+            this.buildingData = result[0];
+            let array = [];
+            array = this.buildingData['building_layout']
+                .slice(2, this.buildingData['building_layout'].length - 2)
+                .split('"', this.buildingData['building_layout'].length);
+
+            const final_arr = [];
+            for (let i = 1; i < array.length; i += 2) {
+                // take every second element
+                final_arr.push(array[i]);
+            }
+            console.log(final_arr);
+            // Process a simple building layout
+
+            let j = 0;
+            while (j < final_arr.length) {
+                this.buildingConfig.push({
+                    building_name: this.buildingData['building_name'],
+                    building_id: this.buildingData['building_id'],
+                    building_floor: final_arr[j],
+                    layout: final_arr[j + 1],
+                });
+                j += 2;
+            }
+            // for (i = 0; i < final_arr.length; i += 2) {
+            //     this.buildingConfig.push({
+            //         building_name: this.buildingData['building_name'],
+            //         building_id: this.buildingData['building_id'],
+            //         building_floor: final_arr[i],
+            //         layout: final_arr[i + 1],
+            //     });
+            // }
+
+            console.log(this.buildingConfig);
+        });
+        return this.buildingConfig;
+    }
+
+    public processRoomChart(map_RoomData: any[], map_BuildingData: any[]) {
+        console.log(map_BuildingData);
+        let mapObj;
+        let layoutValArr;
+        map_RoomData.map(element => {
+            mapObj = {
+                seatRowLabel: element.floor,
+                seats: [],
+                seatPricingInformation: element.room_rate,
+            };
+        });
+        map_BuildingData.map(element => {
+            layoutValArr = element.layout.split('');
+        });
+        console.log(layoutValArr);
+    }
     public processSeatChart(map_data: any[]) {
         if (map_data.length > 0) {
-            console.log(map_data);
             var seatNoCounter = 1;
             for (let __counter = 0; __counter < map_data.length; __counter++) {
                 var row_label = '';
                 var item_map = map_data[__counter].seat_map;
-                console.log(item_map);
 
                 // Get the label name and price
                 row_label = 'Row ' + item_map[0].seat_label + ' - ';
@@ -116,10 +183,8 @@ export class RoomChartComponent implements OnInit {
 
                 if (item_map[item_map.length - 1].seat_label != ' ') {
                     row_label += item_map[item_map.length - 1].seat_label;
-                    console.log(row_label);
                 } else {
                     row_label += item_map[item_map.length - 2].seat_label;
-                    console.log(row_label);
                 }
                 row_label += ' : Rs. ' + map_data[__counter].seat_price;
                 console.log(row_label);
@@ -129,9 +194,10 @@ export class RoomChartComponent implements OnInit {
                         seats: [],
                         seatPricingInformation: row_label,
                     };
-                    console.log(mapObj);
                     row_label = '';
                     var seatValArr = map_element.layout.split('');
+                    console.log(seatValArr);
+
                     if (this.seatChartConfig.newSeatNoForRow) {
                         seatNoCounter = 1; // Reset the seat label counter for new row
                     }
@@ -157,7 +223,6 @@ export class RoomChartComponent implements OnInit {
                                     map_element.seat_label +
                                     ' ' +
                                     seatObj['seatNo'];
-                                console.log(seatObj['seatLabel']);
                             } else {
                                 seatObj['seatNo'] =
                                     '' +
@@ -169,9 +234,7 @@ export class RoomChartComponent implements OnInit {
                                     map_element.seat_label +
                                     ' ' +
                                     seatObj['seatNo'];
-                                console.log(seatObj['seatLabel']);
                             }
-                            console.log(seatObj);
 
                             seatNoCounter++;
                         } else {
@@ -180,9 +243,8 @@ export class RoomChartComponent implements OnInit {
                         totalItemCounter++;
                         mapObj['seats'].push(seatObj);
                     });
-                    console.log(' \n\n\n Seat Objects ', mapObj);
+                    // console.log(' \n\n\n Seat Objects ', mapObj);
                     this.seatmap.push(mapObj);
-                    console.log(this.seatmap);
                 });
             }
 
