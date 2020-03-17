@@ -1,4 +1,4 @@
-export interface IRoom {
+export interface IRoomConfig {
     room_no: string;
     floor: string;
     building_id: string;
