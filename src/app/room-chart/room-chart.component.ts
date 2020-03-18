@@ -15,7 +15,7 @@ export class RoomChartComponent implements OnInit {
     public seatConfig: any = null;
     public buildingConfig: IBuildingConfig[] = [];
     public roomConfig: IRoomConfig[] = [];
-    public bConfig: IBuildingConfig[] = [];
+    public bConfig: Array<IBuildingConfig> = [];
     public rConfig: IRoomConfig[] = [];
 
     public seatmapConfig: any = null;
@@ -46,17 +46,75 @@ export class RoomChartComponent implements OnInit {
 
     constructor(private roomService: RoomService) {}
 
-    ngOnInit(): void {
-        let config: IBuildingConfig[];
-        config = this.processBuildingConfig();
-        console.log(config);
-        this.bConfig.push(config[0]);
-        console.log(this.bConfig);
+    ngOnInit() {
+        this.roomService.getBuildingByBuildingId('C').subscribe(result => {
+            this.buildingData = result[0];
 
-        config.pop();
-        // config.push(this.processRoomConfig());
-        // this.rConfig.push(config[0]);
-        // config.pop();
+            let array = [];
+            array = this.buildingData['building_layout']
+                .slice(2, this.buildingData['building_layout'].length - 2)
+                .split('"', this.buildingData['building_layout'].length);
+
+            const arr = [];
+            const final_arr = [];
+            for (let i = 1; i < array.length; i += 2) {
+                // take every second element
+                arr.push(array[i]);
+            }
+
+            for (let i = 0; i < arr.length; i += 2) {
+                final_arr.push({
+                    floor: arr[i],
+                    layout: arr[i + 1],
+                });
+            }
+
+            this.buildingConfig = final_arr.map(element => {
+                return {
+                    building_name: this.buildingData['building_name'],
+                    building_id: this.buildingData['building_id'],
+                    building_floor: element.floor,
+                    layout: element.layout,
+                };
+            });
+
+            this.bConfig = [...this.buildingConfig];
+            console.log(this.bConfig);
+        });
+
+        this.roomService.getRoomByBuildingId('B').subscribe(result => {
+            this.roomData = {
+                room: result,
+            };
+
+            this.roomData.room.forEach(element => {
+                let array = [];
+                array = element.room_image
+                    .slice(1, element.room_image.length - 1)
+                    .split('"', element.room_image.length);
+
+                let final_arr = [];
+                let j = 0;
+                while (j < final_arr.length) {
+                    // take every second element
+                    final_arr.push(array[j]);
+                    j += 2;
+                }
+
+                this.roomConfig.push({
+                    room_no: element.room_no,
+                    floor: element.floor,
+                    building_id: element.building_id,
+                    room_type: element.room_type,
+                    room_rate: element.room_rate,
+                    room_option_type: element.room_option_type,
+                    room_image: final_arr[0],
+                    room_status: element.room_status,
+                    no_of_pax: element.no_of_pax,
+                });
+            });
+            this.rConfig = [...this.roomConfig];
+        });
 
         this.seatConfig = [
             {
@@ -87,48 +145,7 @@ export class RoomChartComponent implements OnInit {
 
         this.processSeatChart(this.seatConfig);
 
-        this.processRoomChart([...this.rConfig], [...this.bConfig]);
-    }
-
-    processBuildingConfig(): IBuildingConfig[] {
-        this.roomService.getBuildingByBuildingId('C').subscribe(result => {
-            console.log(result);
-            this.buildingData = result[0];
-            let array = [];
-            array = this.buildingData['building_layout']
-                .slice(2, this.buildingData['building_layout'].length - 2)
-                .split('"', this.buildingData['building_layout'].length);
-
-            const final_arr = [];
-            for (let i = 1; i < array.length; i += 2) {
-                // take every second element
-                final_arr.push(array[i]);
-            }
-            console.log(final_arr);
-            // Process a simple building layout
-
-            let j = 0;
-            while (j < final_arr.length) {
-                this.buildingConfig.push({
-                    building_name: this.buildingData['building_name'],
-                    building_id: this.buildingData['building_id'],
-                    building_floor: final_arr[j],
-                    layout: final_arr[j + 1],
-                });
-                j += 2;
-            }
-            // for (i = 0; i < final_arr.length; i += 2) {
-            //     this.buildingConfig.push({
-            //         building_name: this.buildingData['building_name'],
-            //         building_id: this.buildingData['building_id'],
-            //         building_floor: final_arr[i],
-            //         layout: final_arr[i + 1],
-            //     });
-            // }
-
-            console.log(this.buildingConfig);
-        });
-        return this.buildingConfig;
+        this.processRoomChart(this.buildingConfig, this.roomConfig);
     }
 
     processRoomConfig(): IRoomConfig[] {
@@ -168,29 +185,33 @@ export class RoomChartComponent implements OnInit {
     }
 
     public processRoomChart(
-        map_RoomData: IRoomConfig[],
-        map_BuildingData: IBuildingConfig[]
+        map_BuildingData: Array<any>,
+        map_RoomData: Array<any>
     ) {
-        let array = [];
-        array.push(map_BuildingData[0]);
+        console.log(map_RoomData);
+        console.log(map_BuildingData);
+
+        const array = Object.assign([], map_BuildingData);
+        // array = map_BuildingData.map(el => el);
+        // array.push(map_BuildingData);
         console.log(array);
-        console.log(map_RoomData[0]);
+        // console.log(map_RoomData);
 
         let mapObj;
         let layoutValArr;
 
-        map_BuildingData.forEach(item => {
-            console.log(item);
-        });
-        for (let i = 0; i < map_RoomData.length; i++) {
-            console.log(map_RoomData[i]);
+        // for (let i = 0; i < map_BuildingData.length; i++) {
+        //     console.log(map_BuildingData[i]);
+        // }
+        // for (let i = 0; i < map_RoomData.length; i++) {
+        //     console.log(map_RoomData[i]);
 
-            // mapObj = {
-            //     seatRowLabel: map_RoomData[0][i].floor,
-            //     seats: [],
-            //     seatPricingInformation: map_RoomData[i].room_rate,
-            // };
-        }
+        // mapObj = {
+        //     seatRowLabel: map_RoomData[0][i].floor,
+        //     seats: [],
+        //     seatPricingInformation: map_RoomData[i].room_rate,
+        // };
+        // }
         console.log(mapObj);
         // map_RoomData.forEach(element => {
         //     console.log(element);
@@ -218,7 +239,7 @@ export class RoomChartComponent implements OnInit {
 
                 // Get the label name and price
                 row_label = 'Row ' + item_map[0].seat_label + ' - ';
-                console.log(row_label);
+                // console.log(row_label);
 
                 if (item_map[item_map.length - 1].seat_label != ' ') {
                     row_label += item_map[item_map.length - 1].seat_label;
@@ -226,7 +247,7 @@ export class RoomChartComponent implements OnInit {
                     row_label += item_map[item_map.length - 2].seat_label;
                 }
                 row_label += ' : Rs. ' + map_data[__counter].seat_price;
-                console.log(row_label);
+                // console.log(row_label);
                 item_map.forEach(map_element => {
                     var mapObj = {
                         seatRowLabel: map_element.seat_label,

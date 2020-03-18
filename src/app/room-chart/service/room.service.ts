@@ -7,9 +7,9 @@ import { IBuilding } from './../model/building.model';
 @Injectable({ providedIn: 'root' })
 export class RoomService {
     private roomByBuildingIdApiURL =
-        'http://192.168.1.159:3000/admin/get_room_byBuilding/';
+        'http://ec2-3-21-75-72.us-east-2.compute.amazonaws.com:3000/admin/get_room_byBuilding/';
     private buildingByBuildingIdApiURL =
-        'http://192.168.1.159:3000/admin/get_building/';
+        'http://ec2-3-21-75-72.us-east-2.compute.amazonaws.com:3000/admin/get_building/';
 
     public headers: HttpHeaders;
 
