@@ -49,19 +49,16 @@ export class RoomChartComponent implements OnInit {
     ngOnInit() {
         this.roomService.getBuildingByBuildingId('C').subscribe(result => {
             this.buildingData = result[0];
-
             let array = [];
             array = this.buildingData['building_layout']
                 .slice(2, this.buildingData['building_layout'].length - 2)
                 .split('"', this.buildingData['building_layout'].length);
-
             const arr = [];
             const final_arr = [];
             for (let i = 1; i < array.length; i += 2) {
                 // take every second element
                 arr.push(array[i]);
             }
-
             for (let i = 0; i < arr.length; i += 2) {
                 final_arr.push({
                     floor: arr[i],
@@ -76,15 +73,6 @@ export class RoomChartComponent implements OnInit {
                     layout: element.layout,
                 });
             });
-            // this.buildingConfig = final_arr.map(element => {
-            //     return {
-            //         building_name: this.buildingData['building_name'],
-            //         building_id: this.buildingData['building_id'],
-            //         building_floor: element.floor,
-            //         layout: element.layout,
-            //     };
-            // });
-
             this.bConfig = [...this.buildingConfig];
             console.log(this.bConfig);
         });
@@ -93,13 +81,11 @@ export class RoomChartComponent implements OnInit {
             this.roomData = {
                 room: result,
             };
-
             this.roomData.room.forEach(element => {
                 let array = [];
                 array = element.room_image
                     .slice(1, element.room_image.length - 1)
                     .split('"', element.room_image.length);
-
                 let final_arr = [];
                 let j = 0;
                 while (j < final_arr.length) {
@@ -107,7 +93,6 @@ export class RoomChartComponent implements OnInit {
                     final_arr.push(array[j]);
                     j += 2;
                 }
-
                 this.roomConfig.push({
                     room_no: element.room_no,
                     floor: element.floor,
@@ -121,6 +106,7 @@ export class RoomChartComponent implements OnInit {
                 });
             });
             this.rConfig = [...this.roomConfig];
+            console.log(this.rConfig);
         });
 
         this.seatConfig = [
@@ -155,48 +141,17 @@ export class RoomChartComponent implements OnInit {
         this.processRoomChart(this.buildingConfig, this.roomConfig);
     }
 
-    processRoomConfig(): IRoomConfig[] {
-        this.roomService.getRoomByBuildingId('B').subscribe(result => {
-            this.roomData = {
-                room: result,
-            };
-
-            this.roomData.room.forEach(element => {
-                let array = [];
-                array = element.room_image
-                    .slice(1, element.room_image.length - 1)
-                    .split('"', element.room_image.length);
-
-                let final_arr = [];
-                let j = 0;
-                while (j < final_arr.length) {
-                    // take every second element
-                    final_arr.push(array[j]);
-                    j += 2;
-                }
-
-                this.roomConfig.push({
-                    room_no: element.room_no,
-                    floor: element.floor,
-                    building_id: element.building_id,
-                    room_type: element.room_type,
-                    room_rate: element.room_rate,
-                    room_option_type: element.room_option_type,
-                    room_image: final_arr[0],
-                    room_status: element.room_status,
-                    no_of_pax: element.no_of_pax,
-                });
-            });
-        });
-        return this.roomConfig;
-    }
-
     public processRoomChart(
         map_BuildingData: Array<any>,
         map_RoomData: Array<any>
     ) {
-        const array = [...map_BuildingData];
+        let array = [];
+        let array1 = [];
 
+        array.push(map_RoomData);
+        array1.push(map_BuildingData);
+        console.log(array);
+        console.log(array1);
         let mapObj;
         let layoutValArr;
 
