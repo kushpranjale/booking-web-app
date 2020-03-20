@@ -15,7 +15,7 @@ export class RoomChartComponent implements OnInit {
     public seatConfig: any = null;
     public buildingConfig: IBuildingConfig[] = [];
     public roomConfig: IRoomConfig[] = [];
-    public bConfig: Array<IBuildingConfig> = [];
+    public bConfig: IBuildingConfig[] = [];
     public rConfig: IRoomConfig[] = [];
 
     public seatmapConfig: any = null;
@@ -68,15 +68,22 @@ export class RoomChartComponent implements OnInit {
                     layout: arr[i + 1],
                 });
             }
-
-            this.buildingConfig = final_arr.map(element => {
-                return {
+            final_arr.forEach(element => {
+                this.buildingConfig.push({
                     building_name: this.buildingData['building_name'],
                     building_id: this.buildingData['building_id'],
                     building_floor: element.floor,
                     layout: element.layout,
-                };
+                });
             });
+            // this.buildingConfig = final_arr.map(element => {
+            //     return {
+            //         building_name: this.buildingData['building_name'],
+            //         building_id: this.buildingData['building_id'],
+            //         building_floor: element.floor,
+            //         layout: element.layout,
+            //     };
+            // });
 
             this.bConfig = [...this.buildingConfig];
             console.log(this.bConfig);
@@ -188,14 +195,7 @@ export class RoomChartComponent implements OnInit {
         map_BuildingData: Array<any>,
         map_RoomData: Array<any>
     ) {
-        console.log(map_RoomData);
-        console.log(map_BuildingData);
-
-        const array = Object.assign([], map_BuildingData);
-        // array = map_BuildingData.map(el => el);
-        // array.push(map_BuildingData);
-        console.log(array);
-        // console.log(map_RoomData);
+        const array = [...map_BuildingData];
 
         let mapObj;
         let layoutValArr;
