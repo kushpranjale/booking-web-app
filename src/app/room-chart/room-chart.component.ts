@@ -5,6 +5,7 @@ import { IBuilding } from './model/building.model';
 import { IRoom } from './model/room.model';
 import { RoomService } from './service/room.service';
 import { log } from 'util';
+import '@types/node';
 
 @Component({
     selector: 'app-room-chart',
@@ -13,6 +14,8 @@ import { log } from 'util';
 })
 export class RoomChartComponent implements OnInit {
     public seatConfig: any = null;
+    public map_BuildingData: IBuildingConfig[] = [];
+    public map_RoomData: IRoomConfig[] = [];
     public buildingConfig: IBuildingConfig[] = [];
     public roomConfig: IRoomConfig[] = [];
     public bConfig: IBuildingConfig[] = [];
@@ -47,7 +50,7 @@ export class RoomChartComponent implements OnInit {
     constructor(private roomService: RoomService) {}
 
     ngOnInit() {
-        this.roomService.getBuildingByBuildingId('C').subscribe(result => {
+        this.roomService.getBuildingByBuildingId('B').subscribe(result => {
             this.buildingData = result[0];
             let array = [];
             array = this.buildingData['building_layout']
@@ -74,7 +77,6 @@ export class RoomChartComponent implements OnInit {
                 });
             });
             this.bConfig = [...this.buildingConfig];
-            console.log(this.bConfig);
         });
 
         this.roomService.getRoomByBuildingId('B').subscribe(result => {
@@ -87,26 +89,64 @@ export class RoomChartComponent implements OnInit {
                     .slice(1, element.room_image.length - 1)
                     .split('"', element.room_image.length);
                 let final_arr = [];
-                let j = 0;
-                while (j < final_arr.length) {
+                let j = 1;
+
+                while (j < array.length) {
                     // take every second element
                     final_arr.push(array[j]);
                     j += 2;
                 }
-                this.roomConfig.push({
-                    room_no: element.room_no,
-                    floor: element.floor,
-                    building_id: element.building_id,
-                    room_type: element.room_type,
-                    room_rate: element.room_rate,
-                    room_option_type: element.room_option_type,
-                    room_image: final_arr[0],
-                    room_status: element.room_status,
-                    no_of_pax: element.no_of_pax,
+                console.log(final_arr);
+
+                this.roomConfig = this.roomData.room.map(element => {
+                    if (element.floor === 'Ground Floor') {
+                        return {
+                            0: {
+                                room_no: element.room_no,
+                                floor: element.floor,
+                                building_id: element.building_id,
+                                room_type: element.room_type,
+                                room_rate: element.room_rate,
+                                room_option_type: element.room_option_type,
+                                room_image: final_arr[0],
+                                room_status: element.room_status,
+                                no_of_pax: element.no_of_pax,
+                            },
+                        };
+                    } else if (element.floor === '1st Floor') {
+                        return {
+                            1: {
+                                room_no: element.room_no,
+                                floor: element.floor,
+                                building_id: element.building_id,
+                                room_type: element.room_type,
+                                room_rate: element.room_rate,
+                                room_option_type: element.room_option_type,
+                                room_image: final_arr[0],
+                                room_status: element.room_status,
+                                no_of_pax: element.no_of_pax,
+                            },
+                        };
+                    } else if (element.floor === '2nd Floor') {
+                        return {
+                            2: {
+                                room_no: element.room_no,
+                                floor: element.floor,
+                                building_id: element.building_id,
+                                room_type: element.room_type,
+                                room_rate: element.room_rate,
+                                room_option_type: element.room_option_type,
+                                room_image: final_arr[0],
+                                room_status: element.room_status,
+                                no_of_pax: element.no_of_pax,
+                            },
+                        };
+                    }
                 });
             });
+            console.log(this.roomConfig);
+
             this.rConfig = [...this.roomConfig];
-            console.log(this.rConfig);
         });
 
         this.seatConfig = [
@@ -138,20 +178,23 @@ export class RoomChartComponent implements OnInit {
 
         this.processSeatChart(this.seatConfig);
 
-        this.processRoomChart(this.buildingConfig, this.roomConfig);
+        setImmediate(() => {
+            this.processRoomChart(this.buildingConfig, this.roomConfig);
+        }, 3000);
     }
 
-    public processRoomChart(
-        map_BuildingData: Array<any>,
-        map_RoomData: Array<any>
-    ) {
-        let array = [];
-        let array1 = [];
+    processRoomChart(map_BuildingData: any[] | any, map_RoomData: any[] | any) {
+        this.map_BuildingData = this.map_BuildingData.concat(map_BuildingData);
+        console.log(map_BuildingData);
+        this.map_RoomData = this.map_RoomData.concat(map_RoomData);
+        console.log(map_RoomData);
+        var array: any[] = [];
+        var array1: any[] = [];
 
+        // array = map_RoomData.splice(0);
         array.push(map_RoomData);
         array1.push(map_BuildingData);
-        console.log(array);
-        console.log(array1);
+
         let mapObj;
         let layoutValArr;
 
@@ -185,6 +228,7 @@ export class RoomChartComponent implements OnInit {
         // });
         console.log(layoutValArr);
     }
+
     public processSeatChart(map_data: any[]) {
         if (map_data.length > 0) {
             var seatNoCounter = 1;
@@ -211,7 +255,7 @@ export class RoomChartComponent implements OnInit {
                     };
                     row_label = '';
                     var seatValArr = map_element.layout.split('');
-                    console.log(seatValArr);
+                    // console.log(seatValArr);
 
                     if (this.seatChartConfig.newSeatNoForRow) {
                         seatNoCounter = 1; // Reset the seat label counter for new row
