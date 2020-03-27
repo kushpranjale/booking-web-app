@@ -215,23 +215,6 @@ export class RoomChartComponent implements OnInit {
                 row_label = 'Row ' + element.building_floor + ' - ';
                 console.log(row_label);
 
-                // if (item_map[item_map.length - 1].floor != ' ') {
-                //     row_label += item_map[item_map.length - 1].floor;
-                //     console.log(row_label);
-                // } else {
-                //     row_label += item_map[item_map.length - 2].floor;
-                //     console.log(row_label);
-                // }
-                // row_label += ' : Rs. ' + this.buildingRoomConfig[__counter].seat_price; //Not Applicable Here
-                // console.log(row_label);
-                // item_map.forEach(map_element => {
-                //     var mapObj = {
-                //         seatRowLabel: map_element.floor,
-                //         seats: [],
-                //         seatPricingInformation: row_label,
-                //     };
-                //     row_label = '';
-                // });
                 var seatValArr = element.layout.split('');
                 console.log(seatValArr);
 
