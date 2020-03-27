@@ -5,7 +5,7 @@ import { IBuilding } from './model/building.model';
 import { IRoom } from './model/room.model';
 import { RoomService } from './service/room.service';
 import { log } from 'util';
-import '@types/node';
+// import { setTimeout } from 'timers';
 
 @Component({
     selector: 'app-room-chart',
@@ -14,8 +14,8 @@ import '@types/node';
 })
 export class RoomChartComponent implements OnInit {
     public seatConfig: any = null;
-    public map_BuildingData: IBuildingConfig[] = [];
-    public map_RoomData: IRoomConfig[] = [];
+    public buildingRoomConfig: any = null;
+
     public buildingConfig: IBuildingConfig[] = [];
     public roomConfig: IRoomConfig[] = [];
     public bConfig: IBuildingConfig[] = [];
@@ -96,262 +96,307 @@ export class RoomChartComponent implements OnInit {
                     final_arr.push(array[j]);
                     j += 2;
                 }
-                console.log(final_arr);
 
-                this.roomConfig = this.roomData.room.map(element => {
-                    if (element.floor === 'Ground Floor') {
-                        return {
-                            0: {
-                                room_no: element.room_no,
-                                floor: element.floor,
-                                building_id: element.building_id,
-                                room_type: element.room_type,
-                                room_rate: element.room_rate,
-                                room_option_type: element.room_option_type,
-                                room_image: final_arr[0],
-                                room_status: element.room_status,
-                                no_of_pax: element.no_of_pax,
-                            },
-                        };
-                    } else if (element.floor === '1st Floor') {
-                        return {
-                            1: {
-                                room_no: element.room_no,
-                                floor: element.floor,
-                                building_id: element.building_id,
-                                room_type: element.room_type,
-                                room_rate: element.room_rate,
-                                room_option_type: element.room_option_type,
-                                room_image: final_arr[0],
-                                room_status: element.room_status,
-                                no_of_pax: element.no_of_pax,
-                            },
-                        };
-                    } else if (element.floor === '2nd Floor') {
-                        return {
-                            2: {
-                                room_no: element.room_no,
-                                floor: element.floor,
-                                building_id: element.building_id,
-                                room_type: element.room_type,
-                                room_rate: element.room_rate,
-                                room_option_type: element.room_option_type,
-                                room_image: final_arr[0],
-                                room_status: element.room_status,
-                                no_of_pax: element.no_of_pax,
-                            },
-                        };
-                    }
+                // this.roomConfig = this.roomData.room.map(element => {
+                //     if (element.floor === 'Ground Floor') {
+                //         return {
+                //             0: {
+                //                 room_no: element.room_no,
+                //                 floor: element.floor,
+                //                 building_id: element.building_id,
+                //                 room_type: element.room_type,
+                //                 room_rate: element.room_rate,
+                //                 room_option_type: element.room_option_type,
+                //                 room_image: final_arr[0],
+                //                 room_status: element.room_status,
+                //                 no_of_pax: element.no_of_pax,
+                //             },
+                //         };
+                //     } else if (element.floor === '1st Floor') {
+                //         return {
+                //             1: {
+                //                 room_no: element.room_no,
+                //                 floor: element.floor,
+                //                 building_id: element.building_id,
+                //                 room_type: element.room_type,
+                //                 room_rate: element.room_rate,
+                //                 room_option_type: element.room_option_type,
+                //                 room_image: final_arr[0],
+                //                 room_status: element.room_status,
+                //                 no_of_pax: element.no_of_pax,
+                //             },
+                //         };
+                //     } else if (element.floor === '2nd Floor') {
+                //         return {
+                //             2: {
+                //                 room_no: element.room_no,
+                //                 floor: element.floor,
+                //                 building_id: element.building_id,
+                //                 room_type: element.room_type,
+                //                 room_rate: element.room_rate,
+                //                 room_option_type: element.room_option_type,
+                //                 room_image: final_arr[0],
+                //                 room_status: element.room_status,
+                //                 no_of_pax: element.no_of_pax,
+                //             },
+                //         };
+                //     }
+                // });
+
+                this.roomConfig.push({
+                    room_no: element.room_no,
+                    floor: element.floor,
+                    building_id: element.building_id,
+                    room_type: element.room_type,
+                    room_rate: element.room_rate,
+                    room_option_type: element.room_option_type,
+                    room_image: final_arr[0],
+                    room_status: element.room_status,
+                    no_of_pax: element.no_of_pax,
                 });
             });
-            console.log(this.roomConfig);
 
             this.rConfig = [...this.roomConfig];
         });
 
-        this.seatConfig = [
-            {
-                building_name: 'C',
-                seat_price: 250,
-                seat_map: [
-                    {
-                        seat_label: '2nd Floor',
-                        layout: 'ggggg_ggggg',
-                        floor: '2',
-                        path: '../../assets/Room_types/StudioLoft.jpg',
-                    },
-                    {
-                        seat_label: '1st Floor',
-                        layout: 'ggggg_ggggg',
-                        floor: '1',
-                        path: '../../assets/Room_types/Studio.jpg',
-                    },
-                    {
-                        seat_label: 'Ground Floor',
-                        layout: 'gggg___gggg',
-                        floor: '0',
-                        path: '../../assets/Room_types/BunkBed.jpg',
-                    },
-                ],
-            },
-        ];
+        // this.seatConfig = [
+        //     {
+        //         building_name: 'C',
+        //         seat_price: 250,
+        //         seat_map: [
+        //             {
+        //                 seat_label: '2nd Floor',
+        //                 layout: 'ggggg_ggggg',
+        //                 floor: '2',
+        //                 path: '../../assets/Room_types/StudioLoft.jpg',
+        //             },
+        //             {
+        //                 seat_label: '1st Floor',
+        //                 layout: 'ggggg_ggggg',
+        //                 floor: '1',
+        //                 path: '../../assets/Room_types/Studio.jpg',
+        //             },
+        //             {
+        //                 seat_label: 'Ground Floor',
+        //                 layout: 'gggg___gggg',
+        //                 floor: '0',
+        //                 path: '../../assets/Room_types/BunkBed.jpg',
+        //             },
+        //         ],
+        //     },
+        // ];
 
-        this.processSeatChart(this.seatConfig);
+        // this.processSeatChart(this.seatConfig);
 
-        setImmediate(() => {
-            this.processRoomChart(this.buildingConfig, this.roomConfig);
+        this.CallFunction(this.buildingConfig, this.roomConfig);
+    }
+
+    CallFunction(buildingConfig, roomConfig) {
+        setTimeout(() => {
+            buildingConfig.forEach(element => {
+                element['seat_map'] = roomConfig.filter(
+                    el => el.floor == element.building_floor
+                );
+            });
+
+            this.processRoomChart(buildingConfig);
         }, 3000);
     }
-
-    processRoomChart(map_BuildingData: any[] | any, map_RoomData: any[] | any) {
-        this.map_BuildingData = this.map_BuildingData.concat(map_BuildingData);
+    processRoomChart(map_BuildingData: any[] | any) {
         console.log(map_BuildingData);
-        this.map_RoomData = this.map_RoomData.concat(map_RoomData);
-        console.log(map_RoomData);
-        var array: any[] = [];
-        var array1: any[] = [];
 
-        // array = map_RoomData.splice(0);
-        array.push(map_RoomData);
-        array1.push(map_BuildingData);
-
-        let mapObj;
-        let layoutValArr;
-
-        // for (let i = 0; i < map_BuildingData.length; i++) {
-        //     console.log(map_BuildingData[i]);
-        // }
-        // for (let i = 0; i < map_RoomData.length; i++) {
-        //     console.log(map_RoomData[i]);
-
-        // mapObj = {
-        //     seatRowLabel: map_RoomData[0][i].floor,
-        //     seats: [],
-        //     seatPricingInformation: map_RoomData[i].room_rate,
-        // };
-        // }
-        console.log(mapObj);
-        // map_RoomData.forEach(element => {
-        //     console.log(element);
-
-        //     mapObj = {
-        //         seatRowLabel: element.floor,
-        //         seats: [],
-        //         seatPricingInformation: element.room_rate,
-        //     };
-        // });
-
-        // map_BuildingData[0].forEach(element => {
-        //     console.log(element);
-
-        //     layoutValArr = element.layout.split('');
-        // });
-        console.log(layoutValArr);
-    }
-
-    public processSeatChart(map_data: any[]) {
-        if (map_data.length > 0) {
+        if (map_BuildingData.length > 0) {
             var seatNoCounter = 1;
-            for (let __counter = 0; __counter < map_data.length; __counter++) {
+            map_BuildingData.forEach(element => {
                 var row_label = '';
-                var item_map = map_data[__counter].seat_map;
-
+                var item_map = element.seat_map;
+                console.log(item_map);
                 // Get the label name and price
-                row_label = 'Row ' + item_map[0].seat_label + ' - ';
-                // console.log(row_label);
+                row_label = 'Row ' + element.building_floor + ' - ';
+                console.log(row_label);
 
-                if (item_map[item_map.length - 1].seat_label != ' ') {
-                    row_label += item_map[item_map.length - 1].seat_label;
-                } else {
-                    row_label += item_map[item_map.length - 2].seat_label;
+                // if (item_map[item_map.length - 1].floor != ' ') {
+                //     row_label += item_map[item_map.length - 1].floor;
+                //     console.log(row_label);
+                // } else {
+                //     row_label += item_map[item_map.length - 2].floor;
+                //     console.log(row_label);
+                // }
+                // row_label += ' : Rs. ' + this.buildingRoomConfig[__counter].seat_price; //Not Applicable Here
+                // console.log(row_label);
+                // item_map.forEach(map_element => {
+                //     var mapObj = {
+                //         seatRowLabel: map_element.floor,
+                //         seats: [],
+                //         seatPricingInformation: row_label,
+                //     };
+                //     row_label = '';
+                // });
+                var seatValArr = element.layout.split('');
+                console.log(seatValArr);
+
+                if (this.seatChartConfig.newSeatNoForRow) {
+                    seatNoCounter = 1; // Reset the seat label counter for new row
                 }
-                row_label += ' : Rs. ' + map_data[__counter].seat_price;
-                // console.log(row_label);
-                item_map.forEach(map_element => {
-                    var mapObj = {
-                        seatRowLabel: map_element.seat_label,
-                        seats: [],
-                        seatPricingInformation: row_label,
+                var totalItemCounter = 1;
+
+                var mapObj = {
+                    seatRowLabel: element.building_floor,
+                    seats: [],
+                    seatPricingInformation: row_label,
+                };
+                row_label = '';
+
+                seatValArr.forEach(item => {
+                    var seatObj = {
+                        key: element.building_floor + '_' + totalItemCounter,
+                        price: element.room_rate,
+                        path: element.room_image,
+                        status: element.room_status,
                     };
-                    row_label = '';
-                    var seatValArr = map_element.layout.split('');
-                    // console.log(seatValArr);
 
-                    if (this.seatChartConfig.newSeatNoForRow) {
-                        seatNoCounter = 1; // Reset the seat label counter for new row
+                    if (item != '_') {
+                        seatObj['seatNo'] = element.room_no;
+
+                        seatObj['seatLabel'] =
+                            element.seat_label + ' ' + seatObj['seatNo'];
+
+                        seatNoCounter++;
+                    } else {
+                        seatObj['seatLabel'] = '';
                     }
-                    var totalItemCounter = 1;
-                    seatValArr.forEach(item => {
-                        var seatObj = {
-                            key:
-                                map_element.seat_label + '_' + totalItemCounter,
-                            price: map_data[__counter]['seat_price'],
-                            path: map_element.path,
-                            status: 'available',
-                        };
-
-                        if (item != '_') {
-                            if (seatNoCounter < 10) {
-                                seatObj['seatNo'] =
-                                    map_data[__counter].building_name +
-                                    map_element.floor +
-                                    '0' +
-                                    seatNoCounter;
-
-                                seatObj['seatLabel'] =
-                                    map_element.seat_label +
-                                    ' ' +
-                                    seatObj['seatNo'];
-                            } else {
-                                seatObj['seatNo'] =
-                                    '' +
-                                    map_data[__counter].building_name +
-                                    map_element.floor +
-                                    seatNoCounter;
-
-                                seatObj['seatLabel'] =
-                                    map_element.seat_label +
-                                    ' ' +
-                                    seatObj['seatNo'];
-                            }
-
-                            seatNoCounter++;
-                        } else {
-                            seatObj['seatLabel'] = '';
-                        }
-                        totalItemCounter++;
-                        mapObj['seats'].push(seatObj);
-                    });
-                    // console.log(' \n\n\n Seat Objects ', mapObj);
-                    this.seatmap.push(mapObj);
+                    totalItemCounter++;
+                    mapObj['seats'].push(seatObj);
                 });
-            }
-
-            // for (let __counter = 0; __counter < map_data.length; __counter++) {
-            //   var row_label = "";
-            //   var rowLblArr = map_data[__counter]["seat_labels"];
-            //   var seatMapArr = map_data[__counter]["seat_map"];
-            //   for (let rowIndex = 0; rowIndex < rowLblArr.length; rowIndex++) {
-            //     var rowItem = rowLblArr[rowIndex];
-            //     var mapObj = {
-            //       "seatRowLabel" : rowItem,
-            //       "seats" : []
-            //     };
-            //     var seatValArr = seatMapArr[rowIndex].split('');
-            //     var seatNoCounter = 1;
-            //     var totalItemCounter = 1;
-            //     seatValArr.forEach(item => {
-            //       var seatObj = {
-            //         "key" : rowItem+"_"+totalItemCounter,
-            //         "price" : map_data[__counter]["seat_price"],
-            //         "status" : "available"
-            //       };
-
-            //       if( item != '_')
-            //       {
-            //         seatObj["seatLabel"] = rowItem+" "+seatNoCounter;
-            //         if(seatNoCounter < 10)
-            //         { seatObj["seatNo"] = "0"+seatNoCounter; }
-            //         else { seatObj["seatNo"] = ""+seatNoCounter; }
-
-            //         seatNoCounter++;
-            //       }
-            //       else
-            //       {
-            //         seatObj["seatLabel"] = "";
-            //       }
-            //       totalItemCounter++;
-            //       mapObj["seats"].push(seatObj);
-            //     });
-            //     console.log(" \n\n\n Seat Objects " , mapObj);
-            //     this.seatmap.push( mapObj );
-            //     console.log(" \n\n\n Seat Map " , this.seatmap);
-
-            //   }
-
-            // }
+                // console.log(' \n\n\n Seat Objects ', mapObj);
+                this.seatmap.push(mapObj);
+            });
         }
     }
+
+    // public processSeatChart(map_data: any[]) {
+    //     if (map_data.length > 0) {
+    //         var seatNoCounter = 1;
+    //         for (let __counter = 0; __counter < map_data.length; __counter++) {
+    //             var row_label = '';
+    //             var item_map = map_data[__counter].seat_map;
+
+    //             // Get the label name and price
+    //             row_label = 'Row ' + item_map[0].seat_label + ' - ';
+    //             // console.log(row_label);
+
+    //             if (item_map[item_map.length - 1].seat_label != ' ') {
+    //                 row_label += item_map[item_map.length - 1].seat_label;
+    //             } else {
+    //                 row_label += item_map[item_map.length - 2].seat_label;
+    //             }
+    //             row_label += ' : Rs. ' + map_data[__counter].seat_price;
+    //             // console.log(row_label);
+    //             item_map.forEach(map_element => {
+    //                 var mapObj = {
+    //                     seatRowLabel: map_element.seat_label,
+    //                     seats: [],
+    //                     seatPricingInformation: row_label,
+    //                 };
+    //                 row_label = '';
+    //                 var seatValArr = map_element.layout.split('');
+    //                 // console.log(seatValArr);
+
+    //                 if (this.seatChartConfig.newSeatNoForRow) {
+    //                     seatNoCounter = 1; // Reset the seat label counter for new row
+    //                 }
+    //                 var totalItemCounter = 1;
+    //                 seatValArr.forEach(item => {
+    //                     var seatObj = {
+    //                         key:
+    //                             map_element.seat_label + '_' + totalItemCounter,
+    //                         price: map_data[__counter]['seat_price'],
+    //                         path: map_element.path,
+    //                         status: 'available',
+    //                     };
+
+    //                     if (item != '_') {
+    //                         if (seatNoCounter < 10) {
+    //                             seatObj['seatNo'] =
+    //                                 map_data[__counter].building_name +
+    //                                 map_element.floor +
+    //                                 '0' +
+    //                                 seatNoCounter;
+
+    //                             seatObj['seatLabel'] =
+    //                                 map_element.seat_label +
+    //                                 ' ' +
+    //                                 seatObj['seatNo'];
+    //                         } else {
+    //                             seatObj['seatNo'] =
+    //                                 '' +
+    //                                 map_data[__counter].building_name +
+    //                                 map_element.floor +
+    //                                 seatNoCounter;
+
+    //                             seatObj['seatLabel'] =
+    //                                 map_element.seat_label +
+    //                                 ' ' +
+    //                                 seatObj['seatNo'];
+    //                         }
+
+    //                         seatNoCounter++;
+    //                     } else {
+    //                         seatObj['seatLabel'] = '';
+    //                     }
+    //                     totalItemCounter++;
+    //                     mapObj['seats'].push(seatObj);
+    //                 });
+    //                 // console.log(' \n\n\n Seat Objects ', mapObj);
+    //                 this.seatmap.push(mapObj);
+    //             });
+    //         }
+
+    //         // for (let __counter = 0; __counter < map_data.length; __counter++) {
+    //         //   var row_label = "";
+    //         //   var rowLblArr = map_data[__counter]["seat_labels"];
+    //         //   var seatMapArr = map_data[__counter]["seat_map"];
+    //         //   for (let rowIndex = 0; rowIndex < rowLblArr.length; rowIndex++) {
+    //         //     var rowItem = rowLblArr[rowIndex];
+    //         //     var mapObj = {
+    //         //       "seatRowLabel" : rowItem,
+    //         //       "seats" : []
+    //         //     };
+    //         //     var seatValArr = seatMapArr[rowIndex].split('');
+    //         //     var seatNoCounter = 1;
+    //         //     var totalItemCounter = 1;
+    //         //     seatValArr.forEach(item => {
+    //         //       var seatObj = {
+    //         //         "key" : rowItem+"_"+totalItemCounter,
+    //         //         "price" : map_data[__counter]["seat_price"],
+    //         //         "status" : "available"
+    //         //       };
+
+    //         //       if( item != '_')
+    //         //       {
+    //         //         seatObj["seatLabel"] = rowItem+" "+seatNoCounter;
+    //         //         if(seatNoCounter < 10)
+    //         //         { seatObj["seatNo"] = "0"+seatNoCounter; }
+    //         //         else { seatObj["seatNo"] = ""+seatNoCounter; }
+
+    //         //         seatNoCounter++;
+    //         //       }
+    //         //       else
+    //         //       {
+    //         //         seatObj["seatLabel"] = "";
+    //         //       }
+    //         //       totalItemCounter++;
+    //         //       mapObj["seats"].push(seatObj);
+    //         //     });
+    //         //     console.log(" \n\n\n Seat Objects " , mapObj);
+    //         //     this.seatmap.push( mapObj );
+    //         //     console.log(" \n\n\n Seat Map " , this.seatmap);
+
+    //         //   }
+
+    //         // }
+    //     }
+    // }
 
     public selectSeat(seatObject: any) {
         console.log('Seat to block: ', seatObject);
