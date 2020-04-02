@@ -27,8 +27,13 @@
     border-radius: 7px;
     font-size: 8px;
     padding-left: 5px;
-    /* background-image: url('../../assets/Room_types/StudioLoft.jpg'); */
-    /* background-size: cover; */
+}
+.wrapper {
+    height: 65px;
+    width: 65px;
+    /* margin: 20px; */
+    border-radius: 7px;
+    /* padding-left: 5px; */
 }
 .seat-space {
     background-color: #f8f8f8 !important;
@@ -41,27 +46,50 @@
     background-color: white;
     font-weight: bolder;
     border: 1px solid #a0a0a0;
+    cursor: pointer;
 }
 .seat-available:hover {
     color: #a0a0a0;
     background-color: white;
     border: 1px solid #a0a0a0;
+    cursor: pointer;
 }
-.seat-unavailable {
-    color: white;
-    background-color: black;
+.seat-reserved {
+    color: #7e7878;
+    background-color: #4b4949;
+    font-weight: bolder;
+    border: 1px solid #7e7878;
+    cursor: pointer;
+}
+.seat-reserved:hover {
+    color: #7e7878;
+    background-color: #4b4949;
+    border: 1px solid #7e7878;
+    cursor: pointer;
+}
+.seat-maintenance {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: red;
     font-weight: bolder;
     border: 1px solid white;
+    pointer-events: none;
+}
+.seat-maintenance:hover {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: red;
+    border: 1px solid white;
+    pointer-events: none;
 }
 .seat-booked {
     color: white;
     font-weight: bolder;
-    background-color: #a0a0a0;
+    background-color: green;
     border: 1px solid white;
+    pointer-events: none;
 }
-.seat-item:hover {
+/* .seat-item:hover {
     cursor: pointer;
-}
+} */
 
 .seat-container {
     display: flex;
@@ -70,7 +98,7 @@
 }
 
 .status {
-    margin: 30px 370px;
+    margin: 30px;
     padding: auto;
 }
 

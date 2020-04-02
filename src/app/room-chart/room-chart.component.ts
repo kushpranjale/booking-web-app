@@ -2,10 +2,7 @@ import { IRoomConfig } from './model/roomConfig.model';
 import { IBuildingConfig } from './model/buildingConfig.model';
 import { Component, OnInit } from '@angular/core';
 import { IBuilding } from './model/building.model';
-import { IRoom } from './model/room.model';
 import { RoomService } from './service/room.service';
-import { log } from 'util';
-// import { setTimeout } from 'timers';
 
 @Component({
     selector: 'app-room-chart',
@@ -14,14 +11,8 @@ import { log } from 'util';
 })
 export class RoomChartComponent implements OnInit {
     public seatConfig: any = null;
-    public buildingRoomConfig: any = null;
-
     public buildingConfig: IBuildingConfig[] = [];
     public roomConfig: IRoomConfig[] = [];
-    public bConfig: IBuildingConfig[] = [];
-    public rConfig: IRoomConfig[] = [];
-
-    public seatmapConfig: any = null;
     public seatmap = [];
 
     public seatChartConfig = {
@@ -43,10 +34,6 @@ export class RoomChartComponent implements OnInit {
     public buildingData: IBuilding[] = [];
     public roomData: any = [];
 
-    // html = `<p>Seat : {{ seatobj.seatLabel }} | Price : {{
-    //   seatobj.price
-    // }}Rs</p><div><img src="../assets/images/download.jpg" alt="Watch" height="100%" width="100%"></div>`;
-
     constructor(private roomService: RoomService) {}
 
     ngOnInit() {
@@ -66,17 +53,26 @@ export class RoomChartComponent implements OnInit {
                 final_arr.push({
                     floor: arr[i],
                     layout: arr[i + 1],
+                    no:
+                        arr[i] == '1st Floor'
+                            ? 1
+                            : arr[i] == '2nd Floor'
+                            ? 2
+                            : arr[i] == 'Ground Floor'
+                            ? 0
+                            : null,
                 });
             }
+
             final_arr.forEach(element => {
                 this.buildingConfig.push({
                     building_name: this.buildingData['building_name'],
                     building_id: this.buildingData['building_id'],
                     building_floor: element.floor,
+                    floor_no: element.no,
                     layout: element.layout,
                 });
             });
-            this.bConfig = [...this.buildingConfig];
         });
 
         this.roomService.getRoomByBuildingId('B').subscribe(result => {
@@ -97,52 +93,6 @@ export class RoomChartComponent implements OnInit {
                     j += 2;
                 }
 
-                // this.roomConfig = this.roomData.room.map(element => {
-                //     if (element.floor === 'Ground Floor') {
-                //         return {
-                //             0: {
-                //                 room_no: element.room_no,
-                //                 floor: element.floor,
-                //                 building_id: element.building_id,
-                //                 room_type: element.room_type,
-                //                 room_rate: element.room_rate,
-                //                 room_option_type: element.room_option_type,
-                //                 room_image: final_arr[0],
-                //                 room_status: element.room_status,
-                //                 no_of_pax: element.no_of_pax,
-                //             },
-                //         };
-                //     } else if (element.floor === '1st Floor') {
-                //         return {
-                //             1: {
-                //                 room_no: element.room_no,
-                //                 floor: element.floor,
-                //                 building_id: element.building_id,
-                //                 room_type: element.room_type,
-                //                 room_rate: element.room_rate,
-                //                 room_option_type: element.room_option_type,
-                //                 room_image: final_arr[0],
-                //                 room_status: element.room_status,
-                //                 no_of_pax: element.no_of_pax,
-                //             },
-                //         };
-                //     } else if (element.floor === '2nd Floor') {
-                //         return {
-                //             2: {
-                //                 room_no: element.room_no,
-                //                 floor: element.floor,
-                //                 building_id: element.building_id,
-                //                 room_type: element.room_type,
-                //                 room_rate: element.room_rate,
-                //                 room_option_type: element.room_option_type,
-                //                 room_image: final_arr[0],
-                //                 room_status: element.room_status,
-                //                 no_of_pax: element.no_of_pax,
-                //             },
-                //         };
-                //     }
-                // });
-
                 this.roomConfig.push({
                     room_no: element.room_no,
                     floor: element.floor,
@@ -150,43 +100,12 @@ export class RoomChartComponent implements OnInit {
                     room_type: element.room_type,
                     room_rate: element.room_rate,
                     room_option_type: element.room_option_type,
-                    room_image: final_arr[0],
+                    room_image: final_arr,
                     room_status: element.room_status,
                     no_of_pax: element.no_of_pax,
                 });
             });
-
-            this.rConfig = [...this.roomConfig];
         });
-
-        // this.seatConfig = [
-        //     {
-        //         building_name: 'C',
-        //         seat_price: 250,
-        //         seat_map: [
-        //             {
-        //                 seat_label: '2nd Floor',
-        //                 layout: 'ggggg_ggggg',
-        //                 floor: '2',
-        //                 path: '../../assets/Room_types/StudioLoft.jpg',
-        //             },
-        //             {
-        //                 seat_label: '1st Floor',
-        //                 layout: 'ggggg_ggggg',
-        //                 floor: '1',
-        //                 path: '../../assets/Room_types/Studio.jpg',
-        //             },
-        //             {
-        //                 seat_label: 'Ground Floor',
-        //                 layout: 'gggg___gggg',
-        //                 floor: '0',
-        //                 path: '../../assets/Room_types/BunkBed.jpg',
-        //             },
-        //         ],
-        //     },
-        // ];
-
-        // this.processSeatChart(this.seatConfig);
 
         this.CallFunction(this.buildingConfig, this.roomConfig);
     }
@@ -194,17 +113,42 @@ export class RoomChartComponent implements OnInit {
     CallFunction(buildingConfig, roomConfig) {
         setTimeout(() => {
             buildingConfig.forEach(element => {
+                var seatValArr = element.layout.split('');
+
                 element['seat_map'] = roomConfig.filter(
                     el => el.floor == element.building_floor
                 );
+
+                for (let i = 0; i < seatValArr.length; i++) {
+                    if (seatValArr[i] != '_') {
+                        element['seat_map'][i]['room_layout'] = seatValArr[i];
+                    } else {
+                        element['seat_map'].splice(i, 0, {
+                            room_no: '',
+                            floor: '',
+                            building_id: '',
+                            room_type: '',
+                            room_rate: null,
+                            room_option_type: '',
+                            room_image: [],
+                            room_status: '',
+                            no_of_pax: null,
+                            room_layout: seatValArr[i],
+                        });
+                    }
+                }
+            });
+            buildingConfig.sort((left, right) => {
+                if (left.floor_no > right.floor_no) return -1;
+                if (left.floor_no < right.floor_no) return 1;
+                return 0;
             });
 
             this.processRoomChart(buildingConfig);
-        }, 3000);
+        }, 2200);
     }
-    processRoomChart(map_BuildingData: any[] | any) {
-        console.log(map_BuildingData);
 
+    processRoomChart(map_BuildingData: any[] | any) {
         if (map_BuildingData.length > 0) {
             var seatNoCounter = 1;
             map_BuildingData.forEach(element => {
@@ -213,10 +157,6 @@ export class RoomChartComponent implements OnInit {
                 console.log(item_map);
                 // Get the label name and price
                 row_label = 'Row ' + element.building_floor + ' - ';
-                console.log(row_label);
-
-                var seatValArr = element.layout.split('');
-                console.log(seatValArr);
 
                 if (this.seatChartConfig.newSeatNoForRow) {
                     seatNoCounter = 1; // Reset the seat label counter for new row
@@ -230,19 +170,19 @@ export class RoomChartComponent implements OnInit {
                 };
                 row_label = '';
 
-                seatValArr.forEach(item => {
+                item_map.forEach(item => {
                     var seatObj = {
                         key: element.building_floor + '_' + totalItemCounter,
-                        price: element.room_rate,
-                        path: element.room_image,
-                        status: element.room_status,
+                        price: item.room_rate,
+                        path: item.room_image,
+                        status: item.room_status,
                     };
 
-                    if (item != '_') {
-                        seatObj['seatNo'] = element.room_no;
+                    if (item.room_layout != '_') {
+                        seatObj['seatNo'] = item.room_no;
 
                         seatObj['seatLabel'] =
-                            element.seat_label + ' ' + seatObj['seatNo'];
+                            item.floor + ' ' + seatObj['seatNo'];
 
                         seatNoCounter++;
                     } else {
@@ -251,145 +191,20 @@ export class RoomChartComponent implements OnInit {
                     totalItemCounter++;
                     mapObj['seats'].push(seatObj);
                 });
-                // console.log(' \n\n\n Seat Objects ', mapObj);
                 this.seatmap.push(mapObj);
             });
         }
     }
 
-    // public processSeatChart(map_data: any[]) {
-    //     if (map_data.length > 0) {
-    //         var seatNoCounter = 1;
-    //         for (let __counter = 0; __counter < map_data.length; __counter++) {
-    //             var row_label = '';
-    //             var item_map = map_data[__counter].seat_map;
-
-    //             // Get the label name and price
-    //             row_label = 'Row ' + item_map[0].seat_label + ' - ';
-    //             // console.log(row_label);
-
-    //             if (item_map[item_map.length - 1].seat_label != ' ') {
-    //                 row_label += item_map[item_map.length - 1].seat_label;
-    //             } else {
-    //                 row_label += item_map[item_map.length - 2].seat_label;
-    //             }
-    //             row_label += ' : Rs. ' + map_data[__counter].seat_price;
-    //             // console.log(row_label);
-    //             item_map.forEach(map_element => {
-    //                 var mapObj = {
-    //                     seatRowLabel: map_element.seat_label,
-    //                     seats: [],
-    //                     seatPricingInformation: row_label,
-    //                 };
-    //                 row_label = '';
-    //                 var seatValArr = map_element.layout.split('');
-    //                 // console.log(seatValArr);
-
-    //                 if (this.seatChartConfig.newSeatNoForRow) {
-    //                     seatNoCounter = 1; // Reset the seat label counter for new row
-    //                 }
-    //                 var totalItemCounter = 1;
-    //                 seatValArr.forEach(item => {
-    //                     var seatObj = {
-    //                         key:
-    //                             map_element.seat_label + '_' + totalItemCounter,
-    //                         price: map_data[__counter]['seat_price'],
-    //                         path: map_element.path,
-    //                         status: 'available',
-    //                     };
-
-    //                     if (item != '_') {
-    //                         if (seatNoCounter < 10) {
-    //                             seatObj['seatNo'] =
-    //                                 map_data[__counter].building_name +
-    //                                 map_element.floor +
-    //                                 '0' +
-    //                                 seatNoCounter;
-
-    //                             seatObj['seatLabel'] =
-    //                                 map_element.seat_label +
-    //                                 ' ' +
-    //                                 seatObj['seatNo'];
-    //                         } else {
-    //                             seatObj['seatNo'] =
-    //                                 '' +
-    //                                 map_data[__counter].building_name +
-    //                                 map_element.floor +
-    //                                 seatNoCounter;
-
-    //                             seatObj['seatLabel'] =
-    //                                 map_element.seat_label +
-    //                                 ' ' +
-    //                                 seatObj['seatNo'];
-    //                         }
-
-    //                         seatNoCounter++;
-    //                     } else {
-    //                         seatObj['seatLabel'] = '';
-    //                     }
-    //                     totalItemCounter++;
-    //                     mapObj['seats'].push(seatObj);
-    //                 });
-    //                 // console.log(' \n\n\n Seat Objects ', mapObj);
-    //                 this.seatmap.push(mapObj);
-    //             });
-    //         }
-
-    //         // for (let __counter = 0; __counter < map_data.length; __counter++) {
-    //         //   var row_label = "";
-    //         //   var rowLblArr = map_data[__counter]["seat_labels"];
-    //         //   var seatMapArr = map_data[__counter]["seat_map"];
-    //         //   for (let rowIndex = 0; rowIndex < rowLblArr.length; rowIndex++) {
-    //         //     var rowItem = rowLblArr[rowIndex];
-    //         //     var mapObj = {
-    //         //       "seatRowLabel" : rowItem,
-    //         //       "seats" : []
-    //         //     };
-    //         //     var seatValArr = seatMapArr[rowIndex].split('');
-    //         //     var seatNoCounter = 1;
-    //         //     var totalItemCounter = 1;
-    //         //     seatValArr.forEach(item => {
-    //         //       var seatObj = {
-    //         //         "key" : rowItem+"_"+totalItemCounter,
-    //         //         "price" : map_data[__counter]["seat_price"],
-    //         //         "status" : "available"
-    //         //       };
-
-    //         //       if( item != '_')
-    //         //       {
-    //         //         seatObj["seatLabel"] = rowItem+" "+seatNoCounter;
-    //         //         if(seatNoCounter < 10)
-    //         //         { seatObj["seatNo"] = "0"+seatNoCounter; }
-    //         //         else { seatObj["seatNo"] = ""+seatNoCounter; }
-
-    //         //         seatNoCounter++;
-    //         //       }
-    //         //       else
-    //         //       {
-    //         //         seatObj["seatLabel"] = "";
-    //         //       }
-    //         //       totalItemCounter++;
-    //         //       mapObj["seats"].push(seatObj);
-    //         //     });
-    //         //     console.log(" \n\n\n Seat Objects " , mapObj);
-    //         //     this.seatmap.push( mapObj );
-    //         //     console.log(" \n\n\n Seat Map " , this.seatmap);
-
-    //         //   }
-
-    //         // }
-    //     }
-    // }
-
     public selectSeat(seatObject: any) {
         console.log('Seat to block: ', seatObject);
-        if (seatObject.status == 'available') {
-            seatObject.status = 'booked';
+        if (seatObject.status == 'Available') {
+            seatObject.status = 'Reserved';
             this.cart.selectedSeats.push(seatObject.seatLabel);
             this.cart.seatstoStore.push(seatObject.key);
             this.cart.totalamount += seatObject.price;
-        } else if ((seatObject.status = 'booked')) {
-            seatObject.status = 'available';
+        } else if ((seatObject.status = 'Reserved')) {
+            seatObject.status = 'Available';
             var seatIndex = this.cart.selectedSeats.indexOf(
                 seatObject.seatLabel
             );
@@ -415,7 +230,7 @@ export class RoomChartComponent implements OnInit {
                             element.seats[parseInt(seatSplitArr[1]) - 1];
                         if (seatObj) {
                             console.log('\n\n\nFount Seat to block: ', seatObj);
-                            seatObj['status'] = 'unavailable';
+                            seatObj['status'] = 'Blocked'; // 'Maintenance'
                             this.seatmap[index2]['seats'][
                                 parseInt(seatSplitArr[1]) - 1
                             ] = seatObj;

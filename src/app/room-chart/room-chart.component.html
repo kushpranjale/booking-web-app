@@ -1,7 +1,7 @@
 <div class="roomChart">
     <div class="seat-container">
         <div *ngFor="let seatrow of seatmap">
-            <!-- <div
+            <div
                 class="col-12 pricing-label"
                 *ngIf="
                     seatChartConfig?.showRowWisePricing &&
@@ -9,12 +9,22 @@
                 "
             >
                 {{ seatrow.seatPricingInformation }}
-            </div> -->
+            </div>
             <div class="seatrow container">
                 <div *ngIf="seatChartConfig?.showRowsLabel">
                     <div class="row-label">{{ seatrow.seatRowLabel }}</div>
                 </div>
-                <div *ngFor="let seatobj of seatrow.seats">
+                <div
+                    *ngFor="let seatobj of seatrow.seats"
+                    class="wrapper"
+                    [ngStyle]="{
+                        cursor:
+                            seatobj.status === 'Maintenance' ||
+                            seatobj.status === 'Blocked'
+                                ? 'not-allowed'
+                                : 'pointer'
+                    }"
+                >
                     <div
                         class="seat-item seat-space"
                         style="color:white ; background-color:white"
@@ -27,14 +37,17 @@
                         placement="top"
                         [ngClass]="{
                             'seat-item': true,
-                            'seat-available': seatobj.status == 'available',
-                            'seat-booked': seatobj.status == 'booked',
-                            'seat-unavailable': seatobj.status == 'unavailable'
+                            'seat-available': seatobj.status == 'Available',
+                            'seat-reserved': seatobj.status == 'Reserved',
+                            'seat-booked': seatobj.status == 'Blocked',
+                            'seat-maintenance': seatobj.status == 'Maintenance'
                         }"
                         (click)="selectSeat(seatobj)"
                         *ngIf="
-                            (seatobj.status == 'available' ||
-                                seatobj.status == 'booked') &&
+                            (seatobj.status == 'Available' ||
+                                seatobj.status == 'Blocked' ||
+                                seatobj.status == 'Maintenance' ||
+                                seatobj.status == 'Reserved') &&
                             seatobj.seatLabel != ''
                         "
                     >
@@ -50,12 +63,13 @@
                             </mat-card-header> -->
                             <img
                                 matCardImage
-                                src="{{ seatobj.path }}"
+                                src="{{ seatobj.path[3] }}"
                                 height="100%"
                                 width="100%"
                             />
                             <mat-card-content>
                                 <h5>{{ seatobj.seatLabel }}</h5>
+                                <p>{{ seatobj.status }}</p>
                             </mat-card-content>
                             <mat-card-footer>
                                 <p>₹ {{ seatobj.price }} / Per Night</p>
@@ -63,20 +77,20 @@
                         </mat-card>
                     </ng-template>
 
-                    <div
-                        tooltip="Seat not available"
+                    <!-- <div
+                        tooltip="Seat not Available"
                         placement="top"
                         [ngClass]="{
                             'seat-item': true,
-                            'seat-unavailable': true
+                            'seat-maintenance': true
                         }"
                         *ngIf="
-                            seatobj.status == 'unavailable' &&
+                            seatobj.status == 'Maintenance' &&
                             seatobj.seatLabel != ''
                         "
                     >
                         {{ seatobj.seatNo }}
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

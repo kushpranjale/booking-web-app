@@ -5,11 +5,12 @@ body {
 .first-container {
     display: flex;
     flex-direction: column;
-    height: 30vh;
+    height: auto;
+    width: 100vw;
 }
 
 .first-container mat-card {
-    height: 30vh;
+    height: auto;
 }
 
 .second-container {
