@@ -27,7 +27,7 @@
                 >
                     <div
                         class="seat-item seat-space"
-                        style="color:white ; background-color:white"
+                        style="color: white; background-color: white;"
                         *ngIf="seatobj.seatLabel == ''"
                     >
                         &nbsp;
@@ -109,9 +109,9 @@
             <div class="col-lg-8 selected-seats">
                 <h5 class="col-lg-12 no-padding">Selected Seats :</h5>
                 <span
-                    *ngFor="let seatLabel of cart.selectedSeats"
+                    *ngFor="let seat of cart.selectedSeats"
                     class="badge badge-primary"
-                    >{{ seatLabel }}</span
+                    >{{ seat.seatLabel }}</span
                 >
             </div>
         </div>
@@ -121,7 +121,6 @@
                 type="button"
                 (click)="processBooking()"
                 class="btn btn-primary"
-                mdbWavesEffect
             >
                 Book Now
             </button>

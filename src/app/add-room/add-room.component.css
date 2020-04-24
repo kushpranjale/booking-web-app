@@ -1,8 +1,10 @@
-body {
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-}
-.first-container {
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+/* body {
+    overflow-y: hidden; */ /* Hide vertical scrollbar */
+/* overflow-x: hidden; */ /* Hide horizontal scrollbar */
+/* } */
+/* .first-container {
     display: flex;
     flex-direction: column;
     height: auto;
@@ -24,7 +26,6 @@ body {
     width: 70vw;
     height: 70vh;
     margin: 0;
-    /* background-color: #dcdcdc; */
     background-color: #f8f8f8;
 }
 
@@ -42,7 +43,6 @@ body {
 
 .slick-slider {
     width: 90%;
-    /* margin-left: 20px; */
 }
 table,
 th,
@@ -72,4 +72,151 @@ left-panel {
 .first-container mat-card {
     height: 55vh;
     width: 100hw;
+} */
+
+/*********************************
+8. Rooms Card Style
+*********************************/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    /* font-family: 'Josefin Sans', sans-serif; */
+}
+
+.body {
+    background: #f3f3f3;
+}
+
+.wrapper {
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    margin: 2% 30px;
+    width: 65vw;
+    height: 65vh;
+    display: flex;
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.3);
+}
+
+.wrapper .left {
+    width: 30%;
+    background: linear-gradient(to right, #01a9ac, #01dbdf);
+    padding: 30px 25px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    text-align: center;
+    color: #fff;
+}
+
+.wrapper .left div img {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    height: 150px;
+    width: fit-content;
+}
+
+.wrapper .left h4 {
+    margin-bottom: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper .left div h4 {
+    margin-bottom: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-bottom: 0px;
+}
+
+/* .wrapper .left p {
+    font-size: 18px;
+    display: inline-flex;
+} */
+
+.wrapper .left div.overview {
+    margin: 20px 0px 0px;
+    padding: 0px 5px;
+}
+
+.wrapper .left div ul li span {
+    padding: 0px 5px;
+}
+
+.wrapper .left div ul li span img {
+    width: 18px;
+    height: 18px;
+    fill: #fff !important;
+}
+
+.wrapper .right {
+    width: 70%;
+    background: #fff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 30px 25px;
+}
+
+.wrapper .right .info,
+.wrapper .right .projects {
+    margin-bottom: 25px;
+}
+
+.wrapper .right .info h3,
+.wrapper .right .projects h3 {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #353c4e;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper .right .info_data,
+.wrapper .right .projects_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper .right .info_data .data,
+.wrapper .right .projects_data .data {
+    width: 45%;
+}
+
+.wrapper .right .info_data .data h4,
+.wrapper .right .projects_data .data h4 {
+    color: #353c4e;
+    margin-bottom: 5px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper .right .info_data .data p,
+.wrapper .right .projects_data .data p {
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #919aa3;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper .social_media ul {
+    display: flex;
+}
+
+.wrapper .social_media ul li {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(to right, #01a9ac, #01dbdf);
+    margin-right: 10px;
+    border-radius: 5px;
+    line-height: 45px;
+    text-align: center;
+}
+
+.wrapper .social_media ul li a {
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    font-family: 'Josefin Sans', sans-serif;
 }

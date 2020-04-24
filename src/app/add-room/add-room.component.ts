@@ -7,17 +7,19 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.Emulated,
 })
 export class AddRoomComponent implements OnInit {
-    imageList = [
-        { img: '../../assets/room_type.jpg' },
-        { img: '../../assets/A_Building.jpg' },
+    rooms = [];
+    // imageList = [
+    //     { img: '../../assets/room_type.jpg' },
+    //     { img: '../../assets/A_Building.jpg' },
 
-        { img: '../../assets/A_Building.jpg' },
-        { img: '../../assets/room_type.jpg' },
-        { img: '../../assets/A_Building.jpg' },
+    //     { img: '../../assets/A_Building.jpg' },
+    //     { img: '../../assets/room_type.jpg' },
+    //     { img: '../../assets/A_Building.jpg' },
 
-        { img: '../../assets/A_Building.jpg' },
-    ];
+    //     { img: '../../assets/A_Building.jpg' },
+    // ];
 
+    imageList = [];
     slideConfig = {
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -31,4 +33,16 @@ export class AddRoomComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    getSelectedRooms(item) {
+        if (item) {
+            this.rooms = item;
+        }
+        this.rooms['selectedSeats'].map((el) => {
+            for (let img of el.path) {
+                this.imageList.push(img);
+            }
+        });
+        console.log(this.rooms);
+    }
 }

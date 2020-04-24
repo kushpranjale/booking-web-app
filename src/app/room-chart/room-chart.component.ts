@@ -1,6 +1,6 @@
 import { IRoomConfig } from './model/roomConfig.model';
 import { IBuildingConfig } from './model/buildingConfig.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IBuilding } from './model/building.model';
 import { RoomService } from './service/room.service';
 
@@ -29,15 +29,17 @@ export class RoomChartComponent implements OnInit {
         eventId: 0,
     };
 
-    title = 'seat-chart-generator';
+    // title = 'seat-chart-generator';
 
     public buildingData: IBuilding[] = [];
     public roomData: any = [];
 
+    @Output() evEmit = new EventEmitter();
+
     constructor(private roomService: RoomService) {}
 
     ngOnInit() {
-        this.roomService.getBuildingByBuildingId('B').subscribe(result => {
+        this.roomService.getBuildingByBuildingId('B').subscribe((result) => {
             this.buildingData = result[0];
             let array = [];
             array = this.buildingData['building_layout']
@@ -64,7 +66,7 @@ export class RoomChartComponent implements OnInit {
                 });
             }
 
-            final_arr.forEach(element => {
+            final_arr.forEach((element) => {
                 this.buildingConfig.push({
                     building_name: this.buildingData['building_name'],
                     building_id: this.buildingData['building_id'],
@@ -75,11 +77,11 @@ export class RoomChartComponent implements OnInit {
             });
         });
 
-        this.roomService.getRoomByBuildingId('B').subscribe(result => {
+        this.roomService.getRoomByBuildingId('B').subscribe((result) => {
             this.roomData = {
                 room: result,
             };
-            this.roomData.room.forEach(element => {
+            this.roomData.room.forEach((element) => {
                 let array = [];
                 array = element.room_image
                     .slice(1, element.room_image.length - 1)
@@ -98,6 +100,7 @@ export class RoomChartComponent implements OnInit {
                     floor: element.floor,
                     building_id: element.building_id,
                     room_type: element.room_type,
+                    swimming_pool_view: element.swimming_pool_view,
                     room_rate: element.room_rate,
                     room_option_type: element.room_option_type,
                     room_image: final_arr,
@@ -112,11 +115,11 @@ export class RoomChartComponent implements OnInit {
 
     CallFunction(buildingConfig, roomConfig) {
         setTimeout(() => {
-            buildingConfig.forEach(element => {
+            buildingConfig.forEach((element) => {
                 var seatValArr = element.layout.split('');
 
                 element['seat_map'] = roomConfig.filter(
-                    el => el.floor == element.building_floor
+                    (el) => el.floor == element.building_floor
                 );
 
                 for (let i = 0; i < seatValArr.length; i++) {
@@ -151,10 +154,9 @@ export class RoomChartComponent implements OnInit {
     processRoomChart(map_BuildingData: any[] | any) {
         if (map_BuildingData.length > 0) {
             var seatNoCounter = 1;
-            map_BuildingData.forEach(element => {
+            map_BuildingData.forEach((element) => {
                 var row_label = '';
                 var item_map = element.seat_map;
-                console.log(item_map);
                 // Get the label name and price
                 row_label = 'Row ' + element.building_floor + ' - ';
 
@@ -170,12 +172,18 @@ export class RoomChartComponent implements OnInit {
                 };
                 row_label = '';
 
-                item_map.forEach(item => {
+                item_map.forEach((item) => {
+                    console.log(item);
+
                     var seatObj = {
                         key: element.building_floor + '_' + totalItemCounter,
+                        type: item.room_type,
+                        pool_view: item.swimming_pool_view,
+                        option_type: item.room_option_type,
                         price: item.room_rate,
                         path: item.room_image,
                         status: item.room_status,
+                        no_of_pax: item.no_of_pax,
                     };
 
                     if (item.room_layout != '_') {
@@ -197,23 +205,21 @@ export class RoomChartComponent implements OnInit {
     }
 
     public selectSeat(seatObject: any) {
-        console.log('Seat to block: ', seatObject);
         if (seatObject.status == 'Available') {
             seatObject.status = 'Reserved';
-            this.cart.selectedSeats.push(seatObject.seatLabel);
+            this.cart.selectedSeats.push(seatObject);
             this.cart.seatstoStore.push(seatObject.key);
             this.cart.totalamount += seatObject.price;
         } else if ((seatObject.status = 'Reserved')) {
             seatObject.status = 'Available';
-            var seatIndex = this.cart.selectedSeats.indexOf(
-                seatObject.seatLabel
-            );
+            var seatIndex = this.cart.selectedSeats.indexOf(seatObject);
             if (seatIndex > -1) {
                 this.cart.selectedSeats.splice(seatIndex, 1);
                 this.cart.seatstoStore.splice(seatIndex, 1);
                 this.cart.totalamount -= seatObject.price;
             }
         }
+        this.evEmit.emit(this.cart);
     }
 
     public blockSeats(seatsToBlock: string) {

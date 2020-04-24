@@ -1,28 +1,42 @@
-<diV>
+<div class="body">
     <div class="first-container">
         <div>
-            <mat-card>
+            <app-room-chart
+                (evEmit)="getSelectedRooms($event)"
+            ></app-room-chart>
+            <!-- <mat-card>
                 <mat-card-header class="cart-details-div">
                     <mat-card-title>
                         Select Room
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <app-room-chart></app-room-chart>
+                    <app-room-chart
+                        (evEmit)="getSelectedRooms($event)"
+                    ></app-room-chart>
                 </mat-card-content>
-            </mat-card>
+            </mat-card> -->
         </div>
-        <div class="second-container">
+        <!-- <div class="second-container">
             <div>
                 <mat-card class="room-details">
                     <mat-card-title> Room Details :</mat-card-title>
 
-                    <hr style="background-color:black" />
+                    <hr style="background-color: black;" />
                     <div
-                        style="display: flex;  flex-direction: row; margin-left: 5%;"
+                        style="
+                            display: flex;
+                            flex-direction: row;
+                            margin-left: 5%;
+                        "
                     >
                         <div
-                            style="display: flex; flex-direction: column; width: 40%; padding-right: 5%;"
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                                width: 40%;
+                                padding-right: 5%;
+                            "
                         >
                             <ngx-slick-carousel
                                 class="carousel"
@@ -38,7 +52,11 @@
                                 </div>
                             </ngx-slick-carousel>
                             <table
-                                style="width:auto; margin-left: 25px; font-size: 20px;"
+                                style="
+                                    width: auto;
+                                    margin-left: 25px;
+                                    font-size: 20px;
+                                "
                             >
                                 <tr>
                                     <td>Room Type :</td>
@@ -61,12 +79,20 @@
                         <div>
                             <mat-card-title>Option 1</mat-card-title>
                             <hr
-                                style="background-color:black; width: 35vw; font-weight: bold;"
+                                style="
+                                    background-color: black;
+                                    width: 35vw;
+                                    font-weight: bold;
+                                "
                             />
                             <div style="display: flex; flex-direction: row;">
                                 <div>
                                     <table
-                                        style="width:auto; margin-left: 25px; font-size: 20px;"
+                                        style="
+                                            width: auto;
+                                            margin-left: 25px;
+                                            font-size: 20px;
+                                        "
                                     >
                                         <tr>
                                             <td>Pool</td>
@@ -86,7 +112,11 @@
                                 </div>
                                 <div>
                                     <table
-                                        style="width:auto; margin-left: 55px; font-size: 20px;"
+                                        style="
+                                            width: auto;
+                                            margin-left: 55px;
+                                            font-size: 20px;
+                                        "
                                     >
                                         <tr>
                                             <td>TV</td>
@@ -110,21 +140,32 @@
                             </div>
 
                             <div
-                                style="margin: 0;position: relative;top: 50%;
-                            -ms-transform: translateY(-50%);
-                            transform: translateY(-50%);
-                          "
+                                style="
+                                    margin: 0;
+                                    position: relative;
+                                    top: 50%;
+                                    -ms-transform: translateY(-50%);
+                                    transform: translateY(-50%);
+                                "
                             >
                                 <mat-card-title>Option 2</mat-card-title>
                                 <hr
-                                    style="background-color:black; width: 35vw; font-weight: bold;"
+                                    style="
+                                        background-color: black;
+                                        width: 35vw;
+                                        font-weight: bold;
+                                    "
                                 />
                                 <div
                                     style="display: flex; flex-direction: row;"
                                 >
                                     <div>
                                         <table
-                                            style="width:auto; margin-left: 25px; font-size: 20px;"
+                                            style="
+                                                width: auto;
+                                                margin-left: 25px;
+                                                font-size: 20px;
+                                            "
                                         >
                                             <tr>
                                                 <td>Pool</td>
@@ -150,7 +191,11 @@
                                     </div>
                                     <div>
                                         <table
-                                            style="width:auto; margin-left: 55px; font-size: 20px;"
+                                            style="
+                                                width: auto;
+                                                margin-left: 55px;
+                                                font-size: 20px;
+                                            "
                                         >
                                             <tr>
                                                 <td>TV</td>
@@ -191,6 +236,117 @@
                     </mat-card-header>
                 </mat-card>
             </div>
+        </div> -->
+        <div>
+            <div *ngFor="let room of rooms.selectedSeats">
+                <div class="wrapper">
+                    <div class="left">
+                        <ngx-slick-carousel
+                            #slickModal="slick-carousel"
+                            [config]="slideConfig"
+                        >
+                            <div ngxSlickItem *ngFor="let image of imageList">
+                                <img class="img-fluid" src="{{ image }}" />
+                            </div>
+                        </ngx-slick-carousel>
+                        <div class="overview">
+                            <h5>Room Type</h5>
+                            <ul>
+                                <li>{{ room.type }}</li>
+                            </ul>
+                        </div>
+
+                        <div class="overview">
+                            <h5>Guests</h5>
+                            <ul>
+                                <li>
+                                    <span
+                                        >{{ room.no_of_pax }}
+                                        <i class="fas fa-child"></i>
+                                    </span>
+                                    <span
+                                        >{{ room.no_of_pax }}
+                                        <i class="fa fa-male fa-lg"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="overview">
+                            <h5>View</h5>
+                            <ul>
+                                <li>
+                                    <span
+                                        ><img src="../../assets/view.svg" />
+                                        {{
+                                            room.pool_view === 'Y'
+                                                ? 'Pool View'
+                                                : 'Garden View'
+                                        }}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>Information</h3>
+                            <div class="info_data">
+                                <div class="data">
+                                    <h4>Email</h4>
+                                    <p>alex@gmail.com</p>
+                                </div>
+                                <div class="data">
+                                    <h4>Phone</h4>
+                                    <p>0001-213-999876</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="projects">
+                            <h3>Projects</h3>
+                            <div class="projects_data">
+                                <div class="data">
+                                    <h4>Recent</h4>
+                                    <p>Lorem ipsum dolor sit amet.</p>
+                                </div>
+                                <div class="data">
+                                    <h4>Most Viewed</h4>
+                                    <p>dolor sit amet.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="social_media">
+                            <ul>
+                                <li>
+                                    <a href="#"
+                                        ><i
+                                            class="fa fa-facebook-official"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        ><i
+                                            class="fa fa-twitter"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        ><i
+                                            class="fa fa-instagram"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</diV>
+</div>
